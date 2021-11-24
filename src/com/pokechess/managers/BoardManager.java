@@ -1,21 +1,15 @@
 package com.pokechess.managers;
 
 import com.pokechess.board.Board;
-// import com.pokechess.board.Tile;
-// import com.pokechess.player.Pokemon;
 import com.pokechess.player.Player;
 
 public class BoardManager {
     private Board board;
-    private Player player;
-    private Player computer;
-    private int turn;
+    private Player player = new Player();
+
 
     public BoardManager(){
-
         this.board = new Board();
-
-
     }
 
     public void run(Player player){
@@ -31,7 +25,4 @@ public class BoardManager {
         return true;
     }
 
-    public void displayBoard(){
-        System.out.println();
-    }
 }
