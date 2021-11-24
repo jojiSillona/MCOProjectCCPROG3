@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Player {
     private String name;
     private int moves;
+    private int Ass;
 
     private Pokemon[] pokemonTeam = new Pokemon[5];
     private int choice;
