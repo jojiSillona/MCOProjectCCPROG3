@@ -30,26 +30,19 @@ public class GameManager {
     */
     private boolean isValid(String input){
 
-        switch(input) {
-            case "START":
-            case "EXIT GAME":
-                return true;
-            default:
-                return false;
-        }
+        return switch (input) {
+            case "START", "EXIT GAME" -> true;
+            default -> false;
+        };
     }
     /*
         Processes input and launches pokemon select screen
      */
     private void processInput(String input){
 
-        switch(input) {
-            case "START":
-                this.pokemonSelectManager.run();
-                break;
-            case "EXIT GAME":
-                System.exit(0);
-                break;
+        switch (input) {
+            case "START" -> this.pokemonSelectManager.run();
+            case "EXIT GAME" -> System.exit(0);
         }
     }
     private void displayScreen(){
