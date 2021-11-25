@@ -55,6 +55,7 @@ public class Pokemon {
     }
  */
     public void setSpeedster(String direction){
+        //
 
 
     }
