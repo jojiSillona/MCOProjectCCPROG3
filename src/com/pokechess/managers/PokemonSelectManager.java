@@ -1,36 +1,62 @@
 package com.pokechess.managers;
-import com.pokechess.player.Pokemon;
+
+import com.pokechess.player.Player;
 
 import java.util.Scanner;
 
 public class PokemonSelectManager {
-
-    private String choice;
     Scanner scn = new Scanner(System.in);
-    private BoardManager boardManager;
+    private String input;
 
-    public PokemonSelectManager(){
-        this.boardManager = new BoardManager();
+    private Player player;
+
+    public void addPokemonToTeam(String name, String battleType){
+        //switch (battleType)
     }
-    public void run(){
-        this.displayScreen();
+
+    public boolean hasMaxType(String input){
+        String battleType = "";
+        int i = 0;
+        int count = 0;
+
+
+        switch(input){
+            case "Sylveon", "Gardevoir", "Pikachu":
+                battleType = "atk";
+            default:
+                System.out.println("ERROR: Game does not recognize "+ input + ". Please try again.");
+        }
+        while(player.getType(i) != "" || i < 5){
+            if(battleType == player.getType(i))
+                count++;
+        }
+        if(count == 2)
+            return true;
+        else
+            return false;
+    }
+
+    public void showPokemonSelect(){
+        System.out.println("SELECT YOUR POKEMON:");
+        System.out.println("ATTACKERS:");
+        System.out.println("1. Sylveon\n2.Gardevoir\n3.Pikachu");
+        System.out.println("SPEEDSTERS:");
+        System.out.println("1. Zeraora\n2.Talonflame\n3.Absol");
+        System.out.println("ALL-ROUNDERS:");
+        System.out.println("1. Charizard\n2.Lucario\n3.Machamp");
+        for(int i = 0; i < 5; i++){
+            System.out.print("Input their name:");
+            input = scn.nextLine();
+            if(!hasMaxType(input)){
+
+            }
+
+        }
 
     }
-    private boolean isValid(String input){
-        return true;
-    }
-    private void processInput(String input){
-        System.out.print("Type the Pokemon's name to add to your team: ");
-        choice = scn.nextLine();
-    }
-    public void displayScreen(){
-        System.out.println("SELECT CHARACTER");
-        System.out.println("====ATTACKERS====");
-        System.out.println("1.SYLVEON\n2.GARDEVOIR\n3.PICACHU");
-        System.out.println("====SPEEDSTERS====");
-        System.out.println("1.ZERAORA\n2.TALONFLAME\n3.ABSOL");
-        System.out.println("====ALL-ROUNDERS====");
-        System.out.println("1.CHARIZARD\n2.LUCARIO\n3.MACHAMP");
-
+    public void askName(){
+        System.out.print("Type your name:");
+        input = scn.nextLine();
+        player.setName(input);
     }
 }
