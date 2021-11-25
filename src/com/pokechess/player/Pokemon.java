@@ -58,7 +58,6 @@ public class Pokemon {
 
     }
 
-    // i think we have to change the functions on our uml for this one
 
     public void attack(Pokemon Player){
         // this action inflicts damage to the enemy pokemon
