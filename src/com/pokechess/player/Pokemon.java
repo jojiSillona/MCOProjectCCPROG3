@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Pokemon {
     private String name;
-    private String battleType;
+    private String battleType = "";
 
     private boolean move = true;
 
@@ -100,6 +100,10 @@ public class Pokemon {
         // returning to its home tile, it has 40% chance to succeed
 
 
+    }
+
+    public String getBattleType(){
+        return battleType;
     }
 
 }

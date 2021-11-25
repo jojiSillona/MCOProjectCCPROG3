@@ -31,4 +31,12 @@ public class Player {
         }
     }
 
+    public String getType(int index){
+        return pokemonTeam[index].getBattleType();
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
 }
