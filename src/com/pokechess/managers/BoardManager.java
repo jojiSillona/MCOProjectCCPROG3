@@ -8,13 +8,16 @@ public class BoardManager {
     public Player player = new Player();
 
 
+
     public BoardManager(){
+
         this.board = new Board();
     }
 
-    public void run(Player player){
+    public void runBoard(){
 
         Player player1 = new Player();
+        board.printBoard();
 
     }
 
@@ -22,6 +25,7 @@ public class BoardManager {
 
     }
     private boolean isValid(String input){
+
         return true;
     }
 
