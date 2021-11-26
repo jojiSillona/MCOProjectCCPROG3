@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Pokemon {
     private String name;
-    private String battleType = "";
+    private String battleType;
 
     private boolean move = true;
 
@@ -11,54 +11,30 @@ public class Pokemon {
     private int yPos;
 
     private int health;
-    private int maxHealth;
-    private float aAttack;
-    private float totalDamage, attackDamage;
 
-    private float defense, defenseBuffer, rDefense;
+    private float attack;
+    private float defense;
     private int speed;
-    private float rHP, rNewHP, dRNewHP;
-
-
-
+    private float hpRegen;
     private int revivalRate;
 
-    public Pokemon(String name, String battleType, float rHP, float rNewHP,
-                   float dRNewHP, int speed, float rDefense, ArrayList<int>aAttacks) {
-
+    public Pokemon(String name, String battleType, int health, float attack, float defense, int speed, float hpRegen,
+                   int revivalRate) {
         this.name = name;
         this.battleType = battleType;
-
-        this.aAttack = aAttack; // Attack stat of the attacker
-        this.defense = rDefense; // Defense stat of the receiver
-
-        this.totalDamage = attackDamage - defenseBuffer;
-
-        this.attackDamage = (rHP * aAttack%);
-        this.defenseBuffer = (attackDamage * rDefense%);
-
-        this.rHP = rHP; // HP stat of the receiver
-
-        this.rNewHP = rHP - totalDamage; // Receiver's new HP from attack,
-
-        this.dRNewHP = rHP - (totalDamage * 0.8); // Receiver's new HP from defend
-
-
-        //rNewHP = rHP - ⌈(totalDamage * 0.8)⌉
-        // this.rHP = rNewHP // current health of pokemon
-        // totalDamage = attackDamage - defenseBuffer
-        // attackDamage = ⌈(rHP * aAttack%)⌉
-        // defenseBuffer = ⌈(attackDamage * rDefense%)
-
-
+        this.health = health;
+        this.attack = attack;
+        this.defense = defense;
+        this.speed = speed;
+        this.hpRegen = hpRegen;
+        this.revivalRate = revivalRate;
     }
+    /*
     public int move(String direction){
         // int yata to
-
-
     }
-
-
+*/
+/*
     public void attack(Pokemon Player){
         // this action inflicts damage to the enemy pokemon
 
@@ -76,9 +52,8 @@ public class Pokemon {
         }
         int moveoption = number.nextInt(movesExecuted.size()); //choose random moveoptions of avaliable attacks
         return moveoption;
-
-
     }
+ */
     public void setSpeedster(String direction){
 
 

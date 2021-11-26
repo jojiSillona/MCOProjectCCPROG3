@@ -11,13 +11,13 @@ public class Player {
     private boolean loop = true;
 
     Scanner scn = new Scanner(System.in);
-
+/*
     public void commandPokemon(){
         for(moves = 0; moves < 3; moves++){
             do {
                 System.out.println("Pick a character:");
                 for (int i = 0; i < 5; i++) {
-                    System.out.println((i + 1) + ": " + pokemonTeam[i].getName());
+                    //System.out.println((i + 1) + ": " + pokemonTeam[i].getName());
                 }
                 System.out.print("Select: ");
                 choice = scn.nextInt();
@@ -30,12 +30,17 @@ public class Player {
             } while(loop);
         }
     }
-
+*/
     public String getType(int index){
         return pokemonTeam[index].getBattleType();
     }
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public void addPokemon(int index, String name, String bt, int hp, float atk, float def, int spd,
+                           float hpReg, int revRate){
+        pokemonTeam[index] = new Pokemon(name, bt, hp, atk, def, spd, hpReg, revRate);
     }
 }

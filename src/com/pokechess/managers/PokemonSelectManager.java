@@ -2,38 +2,59 @@ package com.pokechess.managers;
 
 import com.pokechess.player.Player;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PokemonSelectManager {
     Scanner scn = new Scanner(System.in);
     private String input;
 
-    private Player player;
+    BoardManager mainGame = new BoardManager();
+    Player player = mainGame.player;
 
-    public void addPokemonToTeam(String name, String battleType){
-        //switch (battleType)
+    public void addPokemonToTeam(int i, String name, String battleType){
+        String batTypeDisp = "";
+        int h = 0;
+        float at = 0;
+        float de = 0;
+        int sp = 0;
+        float hR = 0;
+        int rR = 0;
+        switch (battleType) {
+            case "atk" -> {
+                batTypeDisp = "Attacker";
+                h = 75;
+                at = (float) 0.4;
+                de = (float) 0.15;
+                sp = 2;
+                hR = (float) 0.05;
+                rR = 2;
+            }
+        }
+        player.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR);
     }
 
     public boolean hasMaxType(String input){
-        String battleType = "";
         int i = 0;
         int count = 0;
 
-
-        switch(input){
-            case "Sylveon", "Gardevoir", "Pikachu":
-                battleType = "atk";
-            default:
-                System.out.println("ERROR: Game does not recognize "+ input + ". Please try again.");
-        }
-        while(player.getType(i) != "" || i < 5){
-            if(battleType == player.getType(i))
+        while(!Objects.equals(player.getType(i), "") || i < 5 || count < 2){
+            if(input.equals(player.getType(i)))
                 count++;
+            i++;
         }
-        if(count == 2)
-            return true;
-        else
-            return false;
+        return count == 2;
+    }
+
+    public String identifyBattleType(String input){
+        String battleType = "";
+        switch (input) {
+            case "Sylveon", "Gardevoir", "Pikachu" -> battleType = "atk";
+            case "Zeraora", "Talonflame", "Absol" -> battleType = "spd";
+            case "Charizard", "Lucario", "Machamp" -> battleType = "alr";
+            default -> System.out.println("ERROR: Game does not recognize " + input + ". Please try again.");
+        }
+        return battleType;
     }
 
     public void showPokemonSelect(){
@@ -47,12 +68,10 @@ public class PokemonSelectManager {
         for(int i = 0; i < 5; i++){
             System.out.print("Input their name:");
             input = scn.nextLine();
-            if(!hasMaxType(input)){
-
+            if(!hasMaxType(identifyBattleType(input))){
+                addPokemonToTeam(i, input, identifyBattleType(input));
             }
-
         }
-
     }
     public void askName(){
         System.out.print("Type your name:");

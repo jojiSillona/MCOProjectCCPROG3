@@ -1,11 +1,11 @@
 package com.pokechess.managers;
 
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class GameManager {
     Scanner scn = new Scanner(System.in);
-    private String input;
     private boolean loop = true;
 
     PokemonSelectManager pokemonSelectManager = new PokemonSelectManager();
@@ -19,11 +19,13 @@ public class GameManager {
         System.out.println("POKECHESS UNITE");
         do {
             System.out.print("Type \"START\" to begin: ");
-            input = scn.nextLine();
-            if (input != "start") {
-                System.out.println("ERROR: Game does not recognize input. Try again.");
-            } else
+            String input = scn.nextLine();
+            if (Objects.equals(input, "start"))
                 loop = false;
+            else if (Objects.equals(input, "exit"))
+                System.exit(0);
+            else
+                System.out.println("ERROR: Game does not recognize input. Try again.");
         } while (loop);
         startGame();
     }
