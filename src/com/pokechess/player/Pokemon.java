@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Pokemon {
     private String name;
-    private String battleType;
+    private String battleType = "";
 
     private boolean move = true;
 
@@ -78,7 +78,10 @@ public class Pokemon {
     }
 
     public String getBattleType(){
-        return battleType;
+        if(this.battleType == null)
+            return "";
+        else
+            return battleType;
     }
 
 }

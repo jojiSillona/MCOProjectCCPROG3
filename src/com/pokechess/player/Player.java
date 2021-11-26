@@ -32,7 +32,10 @@ public class Player {
     }
 */
     public String getType(int index){
-        return pokemonTeam[index].getBattleType();
+        if(pokemonTeam[index].getBattleType() == null)
+            return "";
+        else
+            return pokemonTeam[index].getBattleType();
     }
 
     public void setName(String name){
