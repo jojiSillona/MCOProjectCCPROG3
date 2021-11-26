@@ -20,9 +20,9 @@ public class GameManager {
         do {
             System.out.print("Type \"START\" to begin: ");
             String input = scn.nextLine();
-            if (Objects.equals(input, "start"))
+            if (input.equalsIgnoreCase("START"))
                 loop = false;
-            else if (Objects.equals(input, "exit"))
+            else if (input.equalsIgnoreCase("EXIT"))
                 System.exit(0);
             else
                 System.out.println("ERROR: Game does not recognize input. Try again.");
