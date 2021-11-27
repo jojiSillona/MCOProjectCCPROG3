@@ -146,7 +146,7 @@ public class Board {
         return false;
     }
 
-    // Gets the tile positoon
+    // Gets the tile position
     public Tile getTile(int x, int y){
 
         return board[x][y];

@@ -9,7 +9,5 @@ public class Driver {
         GameManager gameManager = new GameManager();
         gameManager.showTitleScreen();
         gameManager.showBoard();
-
-
     }
 }
