@@ -82,6 +82,7 @@ public class Pokemon {
 
     public String getBattleType(){
         return Objects.requireNonNullElse(this.battleType, "non");
+
     }
 
 }

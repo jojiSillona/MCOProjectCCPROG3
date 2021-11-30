@@ -34,6 +34,7 @@ public class Player {
     public String getType(int index){
         if(pokemonTeam[index].getBattleType() == null)
             return "non";
+
         else
             return pokemonTeam[index].getBattleType();
     }
@@ -46,5 +47,6 @@ public class Player {
                            float hpReg, int revRate){
         pokemonTeam[index] = new Pokemon(name, hp, atk, def, spd, hpReg, revRate);
         pokemonTeam[index].setBattleType(bt);
+
     }
 }
