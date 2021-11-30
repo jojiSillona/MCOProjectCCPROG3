@@ -49,40 +49,19 @@ public class PokemonSelectManager {
                 hR = (float) 0.1;
                 rR = 3;
             }
-            case "def" -> {
-                batTypeDisp = "def";
-                h = 100;
-                at = (float) 0.2;
-                de = (float) 0.25;
-                sp = 1;
-                hR = (float) 0.05;
-                rR = 4;
-            }
-            case "sup" -> {
-                batTypeDisp = "sup";
-                h = 100;
-                at = (float) 0.2;
-                de = (float) 0.05;
-                sp = 1;
-                hR = (float) 0.15;
-                rR = 3;
-            }
         }
         player.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR);
     }
 
+
+
     public String identifyBattleType(String input){
-        String battleType;
+        String battleType = "";
         switch (input.toUpperCase(Locale.ROOT)) {
-            case "SYLVEON", "GARDEVOIR", "PIKACHU", "GRENINJA", "VENUSAUR", "ALOLAN NINETALES", "CRAMORANT", "CINDERACE" -> battleType = "atk";
-            case "ZERAORA", "TALONFLAME", "ABSOL", "GENGAR" -> battleType = "spd";
-            case "CHARIZARD", "LUCARIO", "MACHAMP", "GARCHOMP" -> battleType = "alr";
-            case "MAMOSWINE", "BLASTOISE", "SNORLAX", "CRUSTLE", "SLOWBRO" -> battleType = "def";
-            case "BLISSEY", "ELDEGOSS", "MR. MIME", "WIGGLYTUFF" -> battleType = "sup";
-            default -> {
-                System.out.println("ERROR: Game does not recognize " + input + ". Please try again.");
-                battleType = "non";
-            }
+            case "SYLVEON", "GARDEVOIR", "PIKACHU" -> battleType = "atk";
+            case "ZERAORA", "TALONFLAME", "ABSOL" -> battleType = "spd";
+            case "CHARIZARD", "LUCARIO", "MACHAMP" -> battleType = "alr";
+            default -> System.out.println("ERROR: Game does not recognize " + input + ". Please try again.");
         }
         return battleType;
     }
@@ -91,7 +70,7 @@ public class PokemonSelectManager {
         int i = 0;
         int count = 0;
 
-        while(i < size - 1 && count < 2){
+        while(i < size || count < 2){
             if(Objects.equals(identifyBattleType(input), player.getType(i)))
                 count++;
             i++;
@@ -99,51 +78,29 @@ public class PokemonSelectManager {
         return count == 2;
     }
 
-    public boolean hasExistPokemon(String input, int size){
-        int i = 0;
-        while(i <= size){
-            if(Objects.equals(input, player.getName(i))) {
-                System.out.println("You already have this Pokemon!");
-                return true;
-            }
-            i++;
-        }
-        return false;
-    }
-
     public void showPokemonSelect(){
 
         System.out.println("SELECT YOUR POKEMON:");
         System.out.println("ATTACKERS:");
-        System.out.println("1. Sylveon\n2. Gardevoir\n3. Pikachu\n4. Greninja\n5. Venusaur\n6. Alolan Ninetales\n7. Cramorant\n8. Cinderace");
+        System.out.println("1. Sylveon\n2.Gardevoir\n3.Pikachu");
         System.out.println("SPEEDSTERS:");
-        System.out.println("1. Zeraora\n2. Talonflame\n3. Absol\n4. Gengar");
+        System.out.println("1. Zeraora\n2.Talonflame\n3.Absol");
         System.out.println("ALL-ROUNDERS:");
-        System.out.println("1. Charizard\n2. Lucario\n3. Machamp\n4. Garchomp");
-        System.out.println("DEFENDERS:");
-        System.out.println("1. Mamoswine\n2. Blastoise\n3. Snorlax\n4. Crustle\n5. Slowbro");
-        System.out.println("SUPPORTERS:");
-        System.out.println("1. Blissey\n2. Eldegoss\n3. Mr. Mime\n. Wigglytuff");
+        System.out.println("1. Charizard\n2.Lucario\n3.Machamp");
         for(int i = 0; i < 5; i++){
 
             boolean loop = true;
             do{
-                System.out.print("Input Pokemon #" + (i + 1) + ": ");
+                System.out.print("Input Pokemon #" + i + ": ");
                 input = scn.nextLine();
-                if(!Objects.equals(identifyBattleType(input), "non")){
-                    if(!hasExistPokemon(input, i))
-                        if(i > 1){
-                            if(hasMaxType(input, i)) {
-                                System.out.println("You cannot add this!");
-                            }
-                            else
-                                loop = false;
-                        } else {
-                            loop = false;
-                        }
+                if(i > 1){
+                    if(hasMaxType(input, i)) {
+                        System.out.println("You cannot add this!");
+                    }
                 }
+                else
+                    loop = false;
             } while(loop);
-
 
             addPokemonToTeam(i, input, identifyBattleType(input.toUpperCase(Locale.ROOT)));
         }
