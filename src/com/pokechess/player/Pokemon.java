@@ -84,4 +84,8 @@ public class Pokemon {
             return battleType;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
 }
