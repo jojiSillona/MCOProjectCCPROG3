@@ -3,7 +3,7 @@ package com.pokechess.player;
 public class Position {
     protected int alphabet, number;
 
-    public Position(int number, char alphabet){
+    public Position(int number, int alphabet){
 
         this.number = number;
         this.alphabet = alphabet;

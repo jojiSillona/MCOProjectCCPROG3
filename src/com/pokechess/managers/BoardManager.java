@@ -15,6 +15,7 @@ public class BoardManager {
     }
 
     public void runBoard(){
+        this.player = player;
 
         Player player1 = new Player();
         board.printBoard();
@@ -27,6 +28,11 @@ public class BoardManager {
     private boolean isValid(String input){
 
         return true;
+    }
+    private void displayScreen(){
+        System.out.println("\n\n\n\n\n POKECHESS BOARD SCREEN \n\n\n\n\n")
+                // Print board
+
     }
 
 }

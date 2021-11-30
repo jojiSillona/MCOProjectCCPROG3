@@ -15,11 +15,11 @@ public class Pokemon {
         this.name = name;
     }
 
+    public int setPosition{
+        this.position = position;
+
     public String getPokemonName(){
         return name;
-    }
-    public int getPosition{
-        return position;
     }
     public void setHomeTile(int homeTile){
         this.homeTile = homeTile;

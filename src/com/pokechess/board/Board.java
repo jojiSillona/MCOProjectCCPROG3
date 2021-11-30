@@ -10,9 +10,10 @@ public class Board {
     private Player[] players;
 
     public Board(Player[] players){
+
         createBoard();
     }
-
+// still working on this one,, lipat ko sa boardmanager yung iba
 
     // Blank board template
     public void createBoard() {
