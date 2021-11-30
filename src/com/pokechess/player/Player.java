@@ -11,12 +11,6 @@ public class Player {
     private boolean loop = true;
 
     Scanner scn = new Scanner(System.in);
-
-    public Player(){
-        for(int i = 0; i < pokemonTeam.length; i++){
-            pokemonTeam[i] = new Pokemon("non", 0 ,0, 0, 0, 0, 0);
-        }
-    }
 /*
     public void commandPokemon(){
         for(moves = 0; moves < 3; moves++){
@@ -42,10 +36,6 @@ public class Player {
             return "";
         else
             return pokemonTeam[index].getBattleType();
-    }
-
-    public String getName(int index){
-        return pokemonTeam[index].getName();
     }
 
     public void setName(String name){
