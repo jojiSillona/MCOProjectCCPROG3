@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Pokemon {
     private String name;
-    private String battleType = "";
+    private String battleType = "non";
 
     private boolean move = true;
 
@@ -18,10 +18,9 @@ public class Pokemon {
     private float hpRegen;
     private int revivalRate;
 
-    public Pokemon(String name, String battleType, int health, float attack, float defense, int speed, float hpRegen,
+    public Pokemon(String name, int health, float attack, float defense, int speed, float hpRegen,
                    int revivalRate) {
         this.name = name;
-        this.battleType = battleType;
         this.health = health;
         this.attack = attack;
         this.defense = defense;
@@ -77,15 +76,13 @@ public class Pokemon {
 
     }
 
-    public String getBattleType(){
-        if(this.battleType == null)
-            return "";
-        else
-            return battleType;
+    public void setBattleType(String bt){
+        this.battleType = bt;
     }
 
-    public String getName(){
-        return this.name;
+    public String getBattleType(){
+        return Objects.requireNonNullElse(this.battleType, "non");
+
     }
 
 }
