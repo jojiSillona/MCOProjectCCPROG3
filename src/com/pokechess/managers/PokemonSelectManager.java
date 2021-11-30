@@ -131,16 +131,17 @@ public class PokemonSelectManager {
                 System.out.print("Input Pokemon #" + (i + 1) + ": ");
                 input = scn.nextLine();
                 if(!Objects.equals(identifyBattleType(input), "non")){
-                    if(!hasExistPokemon(input, i))
-                        if(i > 1){
-                            if(hasMaxType(input, i)) {
+                    if(!hasExistPokemon(input, i)) {
+                        if (i > 1) {
+                            if (hasMaxType(input, i))
                                 System.out.println("You cannot add this!");
-                            }
-                            else
+                             else
                                 loop = false;
-                        } else {
-                            loop = false;
                         }
+                        else
+                            loop = false;
+
+                    }
                 }
             } while(loop);
 
