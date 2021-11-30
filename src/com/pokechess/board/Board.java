@@ -1,7 +1,6 @@
 import com.pokechess.board.Tile;
 import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
-import com.pokechess.util.Zone;
 
 public class Board {
     private char[][] board;

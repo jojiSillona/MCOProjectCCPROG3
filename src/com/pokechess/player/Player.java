@@ -1,49 +1,19 @@
-package com.pokechess.player;
 
+package com.pokechess.player;
 import java.util.Scanner;
 
-public class Player {
-    private String name;
-    private int moves;
 
+public class Player {
     private Pokemon[] pokemonTeam = new Pokemon[5];
     private int choice;
     private boolean loop = true;
 
-    Scanner scn = new Scanner(System.in);
-/*
-    public void commandPokemon(){
-        for(moves = 0; moves < 3; moves++){
-            do {
-                System.out.println("Pick a character:");
-                for (int i = 0; i < 5; i++) {
-                    //System.out.println((i + 1) + ": " + pokemonTeam[i].getName());
-                }
-                System.out.print("Select: ");
-                choice = scn.nextInt();
-                if (choice > 5 || choice < 0) {
-                    System.out.println("Invalid Input. Please try again.");
-                }
-                else {
-                    loop = false;
-                }
-            } while(loop);
+    Scanner scan = new Scanner(System.in);
+
+    public Player(){
+        for(int i = 0; i < pokemonTeam.length; i++){
+            pokemonTeam[i] = new Pokemon(name: " ", new PokemonBattleType(battleType: " ", hp: 0 )
         }
     }
-*/
-    public String getType(int index){
-        if(pokemonTeam[index].getBattleType() == null)
-            return "";
-        else
-            return pokemonTeam[index].getBattleType();
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public void addPokemon(int index, String name, String bt, int hp, float atk, float def, int spd,
-                           float hpReg, int revRate){
-        pokemonTeam[index] = new Pokemon(name, bt, hp, atk, def, spd, hpReg, revRate);
-    }
 }
+
