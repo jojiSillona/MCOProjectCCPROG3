@@ -1,18 +1,20 @@
 package com.pokechess.managers;
 
-
-import java.util.Objects;
 import java.util.Scanner;
 
 public class GameManager {
     Scanner scn = new Scanner(System.in);
     private boolean loop = true;
 
-    PokemonSelectManager pokemonSelectManager = new PokemonSelectManager();
+    BoardManager mainGame = new BoardManager();
+    PokemonSelectManager pokemonSelectManager = new PokemonSelectManager(mainGame);
+    ComputerManager computerManager = new ComputerManager(mainGame);
+
 
     public void startGame(){
         pokemonSelectManager.askName();
         pokemonSelectManager.showPokemonSelect();
+        computerManager.selectPokemon();
     }
 
     public void showTitleScreen(){

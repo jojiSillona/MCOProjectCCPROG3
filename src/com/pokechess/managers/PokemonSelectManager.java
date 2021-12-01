@@ -10,10 +10,14 @@ public class PokemonSelectManager {
     Scanner scn = new Scanner(System.in);
     private String input;
 
-    BoardManager mainGame = new BoardManager();
+    BoardManager mainGame;
     Player player = mainGame.player;
 
-    public void addPokemonToTeam(int i, String name, String battleType){
+    public PokemonSelectManager(BoardManager manager){
+        this.mainGame = manager;
+    }
+
+    public void addPokemonToTeam(int i, String name, String battleType, Player target){
         String batTypeDisp = "";
         int h = 0;
         float at = 0;
@@ -68,7 +72,7 @@ public class PokemonSelectManager {
                 rR = 3;
             }
         }
-        player.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR);
+        target.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR);
     }
 
     public String identifyBattleType(String input){
@@ -79,10 +83,7 @@ public class PokemonSelectManager {
             case "CHARIZARD", "LUCARIO", "MACHAMP", "GARCHOMP" -> battleType = "alr";
             case "MAMOSWINE", "BLASTOISE", "SNORLAX", "CRUSTLE", "SLOWBRO" -> battleType = "def";
             case "BLISSEY", "ELDEGOSS", "MR. MIME", "WIGGLYTUFF" -> battleType = "sup";
-            default -> {
-                System.out.println("ERROR: Game does not recognize " + input + ". Please try again.");
-                battleType = "non";
-            }
+            default -> battleType = "non";
         }
         return battleType;
     }
@@ -103,7 +104,6 @@ public class PokemonSelectManager {
         int i = 0;
         while(i <= size){
             if(Objects.equals(input, player.getName(i))) {
-                System.out.println("You already have this Pokemon!");
                 return true;
             }
             i++;
@@ -141,11 +141,15 @@ public class PokemonSelectManager {
                         } else {
                             loop = false;
                         }
+                    else
+                        System.out.println(input + " is already in your team! Try again");
                 }
+                else
+                    System.out.println("ERROR: Game does not recognize " + input + ". Please try again.");
             } while(loop);
 
 
-            addPokemonToTeam(i, input, identifyBattleType(input.toUpperCase(Locale.ROOT)));
+            addPokemonToTeam(i, input, identifyBattleType(input.toUpperCase(Locale.ROOT)), player);
         }
     }
     public void askName(){
