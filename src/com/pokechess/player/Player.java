@@ -33,10 +33,6 @@ public class Player {
         this.name = name;
     }
 
-    public String getName(int index){
-        return pokemonTeam[index].getName();
-    }
-
     public void addPokemon(int index, String name, String bt, int hp, float atk, float def, int spd,
                            float hpReg, int revRate, int user){
         pokemonTeam[index] = new Pokemon(name, hp, atk, def, spd, hpReg, revRate);

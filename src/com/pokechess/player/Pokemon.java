@@ -36,15 +36,11 @@ public class Pokemon {
     public void setBattleType(String bt){
         this.battleType = bt;
     }
-    public void setPosition(Tile position){
 
+    public void setPosition(Tile position){
         this.position = position;
     }
 
-    public String getName(){
-
-        return name;
-    }
     public int getPosition(){
 
         return position;
@@ -68,10 +64,6 @@ public class Pokemon {
 
     public String getName(){
         return name;
-    }
-
-    public void setBattleType(String bt){
-        this.battleType = bt;
     }
 
     public String getBattleType(){
