@@ -25,15 +25,12 @@ public class ComputerManager {
 
 
         for(int i = 0; i < 5; i++){
-            boolean loop = true;
+            boolean loop;
             do {
                 choice = rnd.nextInt(25);
                 if (!selector.hasExistPokemon(names[choice], i)) {
                     if (i > 1) {
-                        if (selector.hasMaxType(names[choice], i))
-                            loop = true;
-                        else
-                            loop = false;
+                        loop = selector.hasMaxType(names[choice], i);
                     }
                     else
                         loop = false;
