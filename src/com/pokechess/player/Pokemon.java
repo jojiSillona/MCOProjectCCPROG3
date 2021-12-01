@@ -76,6 +76,10 @@ public class Pokemon {
 
     }
 
+    public String getName(){
+        return name;
+    }
+
     public void setBattleType(String bt){
         this.battleType = bt;
     }

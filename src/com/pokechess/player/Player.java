@@ -39,6 +39,10 @@ public class Player {
             return pokemonTeam[index].getBattleType();
     }
 
+    public String getName(int index){
+        return pokemonTeam[index].getName();
+    }
+
     public void setName(String name){
         this.name = name;
     }
