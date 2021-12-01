@@ -1,5 +1,6 @@
 package com.pokechess.board;
 
+import com.pokechess.division.Zone;
 import com.pokechess.player.Pokemon;
 import com.pokechess.player.Position;
 
@@ -52,6 +53,18 @@ public class Tile {
     public void setPokemon(Pokemon newPokemonPos){
         currPokemonPos = newPokemonPos;
         newPokemonPos.setPosition(this);
+    }
+
+    private void setZone(){
+
+        int number = alphaNum.getNumber();
+        int alphabet = alphaNum.getNumber();
+
+        if((number + alphabet) % 2 == 0)
+            alphaNum = Zone.HomeTile;
+        else{
+            alphaNum = Zone.EnemyTile;
+        }
     }
 
     public Pokemon getPokemon(){

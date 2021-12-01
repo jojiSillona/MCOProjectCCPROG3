@@ -1,19 +1,21 @@
+package com.pokechess.board;
+
 import com.pokechess.board.Tile;
+import com.pokechess.division.Zone;
+import com.pokechess.managers.PokemonSelectManager;
 import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
 public class Board {
-    private char[][] board;
+    private Tile[][] board;
     char[] alphabet = { 'a','b','c','d','e','f','g'};
+
     // alphabet = lowest row position
     // numbers = rightest column position
-    private Player[] players;
 
-    public Board(Player[] players){
-
+    public Board(){
         createBoard();
     }
-// still working on this one,, lipat ko sa boardmanager yung iba
 
     // Blank board template
     public void createBoard() {
@@ -29,21 +31,21 @@ public class Board {
     }
 
     // Adds pokemons on respective zones
-    public void addPokemon(Pokemon pokemon){
-        Zone playerZone = player.getZone();
+    public void addPokemon(Pokemon pokemon) {
+        Zone playerZone = pokemon.getZone();
         Pokemon tempP;
 
-        if (playerZone == Zone.EnemyZone) { // No random generator yet
+        if (playerZone == Zone.EnemyTile) { // No random generator yet
             for (int i = 0; i < 5; i++) {
-                tempP = new ___(Zone.EnemyZone) // Random selected pokemons
-                board[i][6].setPokemon(tempP);
+                board[i][6].setPokemon(pokemon);
+            }
+        } else {
+            for (int i = 0; i < 5; i++) {
+                // tempP = new ___(Zone.HomeZone) // Player's selected pokemon
+                board[i][0].setPokemon(pokemon);
             }
         }
-        else{
-            for (int i = 0; i < 5; i++){
-                tempP = new ___(Zone.HomeZone) // Player's selected pokemon
-                board[i][0].setPokemon(tempP);
-            }
+    }
 
     // Prints out board on game screen
      public void printBoard(){
@@ -51,21 +53,18 @@ public class Board {
          // Prints board and numbers on rightmost column
           for(int i = 4; i > -1; i--){
                for(int j = 0; j < 7; j++){
-                 Pokemon tempP = board[i][j].getPokemon();
+                   Pokemon tempP = board[i][j].getPokemon();
                  if(tempP == null){
-                       if(board[i][j].Division == Zone.HomeZone){
+                       if(board[i][j].alphaNum = Zone.HomeTile){
                            System.out.print("   ");
                        }
-                       else{
-                           System.out.print(" ##");
-                       }
                    }
-                 else if((tempP instanceof // insert Pokemon Name)){
-                        if(tempP.getZone() == Zone.EnemyZone){
-                            // print random selected pokemon by computer
+                 else if((tempP =! PokemonSelectManager.hasExistPokemon("SYLVEON",1))){
+                        if(tempP.getZone() == Zone.EnemyTile){
+                            System.out.print(" eSYL"); // Enemy's pokemon
                         }
-                        else if(tempP.getZone() == Zone.HomeZone){
-                            // print selected pokemon
+                        else if(tempP.getZone() == Zone.HomeTile){
+                            System.out.print(" hSYL"); // Home's pokemon
                         }
                     }
                  else if((tempP instanceof // insert pokemon )){
@@ -100,7 +99,7 @@ public class Board {
                         System.out.print(" hNameofPokemon");
                     }
                 }
-                else if((tempP instanceof insert pokemon)){
+                else if((tempP instan ceof insert pokemon)){
                     if(tempP.getZone() == Zone.EnemyZone){
                         System.out.print(" eNameofPokemon");
                     }
@@ -119,7 +118,7 @@ public class Board {
         System.out.println();
     }
 
-    // Checks if spot is empty on gameboardd
+    // Checks if spot is empty on gameboard
     public boolean emptyTile(int x, int y){
 
         if(x < 0 || x > 4)

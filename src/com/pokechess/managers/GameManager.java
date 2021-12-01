@@ -1,35 +1,34 @@
 package com.pokechess.managers;
 
-
 import java.util.Scanner;
 
 public class GameManager {
     Scanner scn = new Scanner(System.in);
-    private String input;
     private boolean loop = true;
 
-    PokemonSelectManager pokemonSelectManager = new PokemonSelectManager();
-    BoardManager boardManager = new BoardManager();
+    BoardManager mainGame = new BoardManager();
+    PokemonSelectManager pokemonSelectManager = new PokemonSelectManager(mainGame);
+    ComputerManager computerManager = new ComputerManager(mainGame);
+
 
     public void startGame(){
         pokemonSelectManager.askName();
         pokemonSelectManager.showPokemonSelect();
+        computerManager.selectPokemon();
     }
 
     public void showTitleScreen(){
         System.out.println("POKECHESS UNITE");
         do {
             System.out.print("Type \"START\" to begin: ");
-            input = scn.nextLine();
-            if (input != "start") {
-                System.out.println("ERROR: Game does not recognize input. Try again.");
-            } else
+            String input = scn.nextLine();
+            if (input.equalsIgnoreCase("START"))
                 loop = false;
+            else if (input.equalsIgnoreCase("EXIT"))
+                System.exit(0);
+            else
+                System.out.println("ERROR: Game does not recognize input. Try again.");
         } while (loop);
         startGame();
-    }
-    public void showBoard(){
-        System.out.println("POKECHESS GAMEBOARD");
-        boardManager.runBoard();
     }
 }
