@@ -23,14 +23,13 @@ public class ComputerManager {
         Random rnd = new Random();
         int choice;
 
-
         for(int i = 0; i < 5; i++){
             boolean loop;
             do {
-                choice = rnd.nextInt(25);
-                if (!selector.hasExistPokemon(names[choice], i)) {
+                choice = rnd.nextInt(24);
+                if (!selector.hasExistPokemon(names[choice], i, computer)) {
                     if (i > 1) {
-                        loop = selector.hasMaxType(names[choice], i);
+                        loop = selector.hasMaxType(names[choice], i, computer);
                     }
                     else
                         loop = false;
@@ -38,7 +37,7 @@ public class ComputerManager {
                 else
                     loop = true;
             } while(loop);
-            selector.addPokemonToTeam(i, names[choice], selector.identifyBattleType(names[choice]), computer);
+            selector.addPokemonToTeam(i, names[choice], selector.identifyBattleType(names[choice]), computer, 6);
         }
 
     }
