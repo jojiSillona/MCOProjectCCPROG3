@@ -59,7 +59,7 @@ public class Board {
                            System.out.print("   ");
                        }
                    }
-                 else if((tempP =! PokemonSelectManager.hasExistPokemon("SYLVEON",1))){
+                 else if((tempP == PokemonSelectManager.hasExistPokemon("SYLVEON",1))){
                         if(tempP.getZone() == Zone.EnemyTile){
                             System.out.print(" eSYL"); // Enemy's pokemon
                         }
