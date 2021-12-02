@@ -7,6 +7,7 @@ import com.pokechess.player.Pokemon;
 public class BoardManager {
     private Board board;
     public Player player = new Player();
+    public Player computer = new Player();
 
     public BoardManager(){
 

@@ -6,6 +6,10 @@ import java.util.*;
 public class Pokemon {
     private String name;
     private String battleType = "non";
+    private boolean move = true;
+
+    private int xPos;
+    private int yPos;
 
     private int health;
 
@@ -57,9 +61,20 @@ public class Pokemon {
 
         return hpRegen;
     }
+    public void setPosition(int posX, int posY){
+        this.xPos = posX;
+        this.yPos = posY;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setBattleType(String bt){
+        this.battleType = bt;
+    }
 
     public String getBattleType(){
-
         return Objects.requireNonNullElse(this.battleType, "non");
     }
 
