@@ -1,5 +1,6 @@
 package com.pokechess.managers;
 
+import com.pokechess.board.Board;
 import com.pokechess.player.Player;
 
 import java.util.Locale;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class PokemonSelectManager {
     Scanner scn = new Scanner(System.in);
     private String input;
+
 
     BoardManager mainGame;
     Player player;
@@ -125,8 +127,8 @@ public class PokemonSelectManager {
         System.out.println("1. Mamoswine\n2. Blastoise\n3. Snorlax\n4. Crustle\n5. Slowbro");
         System.out.println("SUPPORTERS:");
         System.out.println("1. Blissey\n2. Eldegoss\n3. Mr. Mime\n4. Wigglytuff");
+      
         for(int i = 0; i < 5; i++){
-
             boolean loop = true;
             do{
                 System.out.print("Input Pokemon #" + (i + 1) + ": ");
@@ -147,7 +149,6 @@ public class PokemonSelectManager {
                 else
                     System.out.println("ERROR: Game does not recognize " + input + ". Please try again.");
             } while(loop);
-
 
             addPokemonToTeam(i, input, identifyBattleType(input.toUpperCase(Locale.ROOT)), player, 0);
         }

@@ -1,10 +1,11 @@
 package com.pokechess.player;
-import java.util.*;
 
+import com.pokechess.board.Tile;
+
+import java.util.*;
 public class Pokemon {
     private String name;
     private String battleType = "non";
-
     private boolean move = true;
 
     private int xPos;
@@ -18,6 +19,9 @@ public class Pokemon {
     private float hpRegen;
     private int revivalRate;
 
+    private int startTile;
+    private int position;
+
     public Pokemon(String name, int health, float attack, float defense, int speed, float hpRegen,
                    int revivalRate) {
         this.name = name;
@@ -28,52 +32,34 @@ public class Pokemon {
         this.hpRegen = hpRegen;
         this.revivalRate = revivalRate;
     }
-    /*
-    public int move(String direction){
-        // int yata to
+
+    public void setBattleType(String bt){
+        this.battleType = bt;
     }
-*/
-/*
-    public void attack(Pokemon Player){
-        // this action inflicts damage to the enemy pokemon
+    public void setPosition(Tile position){
 
-        ArrayList<Integer>movesExecuted = new ArrayList<Integer>(); //create ArrayList for moves still avaliable for use
-        Random number = new Random();//choose random number
-
-        for(int i = 0; i < Player.attack(); i++){
-            if(attack(Player, i); == true){ // if pokemon has enough energy to perform the attack
-                movesExecuted.add(i); //add avaliable attacks to list
-                move = true;
-            }
-        }
-        if(movesExecuted.size() == 0){ // if pokemon has no energy to perform any attack (pass)
-            move = false;
-        }
-        int moveoption = number.nextInt(movesExecuted.size()); //choose random moveoptions of avaliable attacks
-        return moveoption;
+        this.position = position;
     }
- */
-    public void setSpeedster(String direction){
 
+    public String getName(){
 
+        return name;
     }
-    public void defend(String direction){
-        // this action reduces the total damage a pokemon receives from an attack by 20%
+    public int getPosition(){
 
-
+        return position;
     }
-    public void heal(String direction){
-        // this action is only available to supporters.
-        // it lets them heal 20% of their max HP
 
-
-
+    public void setStartingTile(int startTile){
+        this.startTile = startTile;
     }
-    public void run(String direction){
-        // this action lets the pokemon run away from battle,
-        // returning to its home tile, it has 40% chance to succeed
+    public int getStartingTile(int startTile){
+        return startTile;
+    }
 
+    public float getHpRegen() {
 
+        return hpRegen;
     }
     public void setPosition(int posX, int posY){
         this.xPos = posX;
@@ -90,7 +76,11 @@ public class Pokemon {
 
     public String getBattleType(){
         return Objects.requireNonNullElse(this.battleType, "non");
-
     }
+
+//    public boolean pokemonCanHeal(){
+//        return heal;
+//
+//    }
 
 }
