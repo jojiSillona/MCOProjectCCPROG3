@@ -1,5 +1,6 @@
 package com.pokechess.managers;
 
+import com.pokechess.board.Board;
 import com.pokechess.player.Player;
 
 import java.util.Locale;
@@ -10,10 +11,10 @@ public class PokemonSelectManager {
     Scanner scn = new Scanner(System.in);
     private String input;
 
-    BoardManager mainGame;
+    Board mainGame;
     Player player = mainGame.player;
 
-    public PokemonSelectManager(BoardManager manager){
+    public PokemonSelectManager(Board manager){
         this.mainGame = manager;
     }
 

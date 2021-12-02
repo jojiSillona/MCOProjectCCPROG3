@@ -1,13 +1,13 @@
-package com.pokechess.board;
 
-import com.pokechess.division.Zone;
+
+package com.pokechess.board;
 import com.pokechess.player.Pokemon;
-import com.pokechess.player.Position;
 
 public class Tile {
 
     Position alphaNum;
     Pokemon currPokemonPos;
+    Pokemon startTile;
 
     public Tile(int number, char alphabet){
         createPosition(number, alphabet);
@@ -50,32 +50,28 @@ public class Tile {
         alphaNum = new Position(number, ialpha);
     }
 
-    public void setPokemon(Pokemon newPokemonPos){
+    public void setCurrPosition(Pokemon newPokemonPos){
         currPokemonPos = newPokemonPos;
         newPokemonPos.setPosition(this);
     }
 
-    private void setZone(){
-
-        int number = alphaNum.getNumber();
-        int alphabet = alphaNum.getNumber();
-
-        if((number + alphabet) % 2 == 0)
-            alphaNum = Zone.HomeTile;
-        else{
-            alphaNum = Zone.EnemyTile;
-        }
-    }
-
-    public Pokemon getPokemon(){
+    public Pokemon getCurrPosition(){
 
         return currPokemonPos;
+    }
+
+    public void setStartingTilePosition(Pokemon newStartTile){
+        startTile = newStartTile;
+        newStartTile.setPosition(this);
+    }
+    public Pokemon getStartingTilePosition(){
+        return startTile;
     }
 
     public Pokemon removePokemon(){
         Pokemon temp = currPokemonPos;
         currPokemonPos = null;
-        temp.setPosition(null);
+        temp.setPosition(this);
         return temp;
     }
 

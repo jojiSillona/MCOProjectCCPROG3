@@ -1,19 +1,25 @@
 package com.pokechess.board;
 
-import com.pokechess.board.Tile;
-import com.pokechess.division.Zone;
-import com.pokechess.managers.PokemonSelectManager;
-import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
 public class Board {
+
+    private Pokemon[] homeTeam = new Pokemon[5];
+    private Pokemon[] computerTeam = new Pokemon[5];
+
     private Tile[][] board;
-    char[] alphabet = { 'a','b','c','d','e','f','g'};
+    char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
+
+    // @param x = number
+	 // @param y = alphabet
 
     // alphabet = lowest row position
     // numbers = rightest column position
 
-    public Board(){
+    public Board() {
+        this.homeTeam = homeTeam;
+        this.computerTeam = computerTeam;
+
         createBoard();
     }
 
@@ -31,92 +37,64 @@ public class Board {
     }
 
     // Adds pokemons on respective zones
-    public void addPokemon(Pokemon pokemon) {
-        Zone playerZone = pokemon.getZone();
-        Pokemon tempP;
+    public void setZones(Pokemon homePokemon, Pokemon computerPokemon) {
 
-        if (playerZone == Zone.EnemyTile) { // No random generator yet
-            for (int i = 0; i < 5; i++) {
-                board[i][6].setPokemon(pokemon);
-            }
-        } else {
-            for (int i = 0; i < 5; i++) {
-                // tempP = new ___(Zone.HomeZone) // Player's selected pokemon
-                board[i][0].setPokemon(pokemon);
-            }
-        }
+        board[0][0].setCurrPosition(homePokemon);
+        board[1][0].setCurrPosition(homePokemon);
+        board[2][0].setCurrPosition(homePokemon);
+        board[3][0].setCurrPosition(homePokemon);
+        board[4][0].setCurrPosition(homePokemon);
+
+        board[0][0].setStartingTilePosition(homePokemon);
+        board[1][0].setStartingTilePosition(homePokemon);
+        board[2][0].setStartingTilePosition(homePokemon);
+        board[3][0].setStartingTilePosition(homePokemon);
+        board[4][0].setStartingTilePosition(homePokemon);
+
+
+        board[0][6].setCurrPosition(computerPokemon);
+        board[1][6].setCurrPosition(computerPokemon);
+        board[2][6].setCurrPosition(computerPokemon);
+        board[3][6].setCurrPosition(computerPokemon);
+        board[4][6].setCurrPosition(computerPokemon);
+
+        board[0][6].setStartingTilePosition(homePokemon);
+        board[1][6].setStartingTilePosition(homePokemon);
+        board[2][6].setStartingTilePosition(homePokemon);
+        board[3][6].setStartingTilePosition(homePokemon);
+        board[4][6].setStartingTilePosition(homePokemon);
     }
 
-    // Prints out board on game screen
-     public void printBoard(){
+    // Prints out game screen
+    public void printBoard(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
+        boolean isdisplayed;
 
-         // Prints board and numbers on rightmost column
-          for(int i = 4; i > -1; i--){
-               for(int j = 0; j < 7; j++){
-                   Pokemon tempP = board[i][j].getPokemon();
-                 if(tempP == null){
-                       if(board[i][j].alphaNum = Zone.HomeTile){
-                           System.out.print("   ");
-                       }
-                   }
-                 else if((tempP == board[i][j].currPokemonPos) { // Insert chosen pokemonn
-                        if(tempP.getZone() == Zone.EnemyTile){
-                            System.out.print(" eSYL"); // Enemy's pokemon
-                        }
-                        else if(tempP.getZone() == Zone.HomeTile){
-                            System.out.print(" hSYL"); // Home's pokemon
-                        }
+        for (int i = 1; i < 36; i++) {
+            isdisplayed = false;
+            for (int j = 0; j < 5; j++) {
+                Pokemon tempP = board[i][j].getCurrPosition();
+                if (tempP == null) {
+                    if (homePokemon[j].getPosition() == i) {
+                        System.out.print("| " + homePokemon[j].getName());
+                        isdisplayed = true;
                     }
-                 else if((tempP instanceof // insert pokemon )){ // Insert chosen pokemon
-                        if(tempP.getZone() == Zone.EnemyZone){
-                        System.out.print(" eNameofPokemon"); // Enemy's pokemon
-                        }
-                        else {
-                        System.out.print(" hNameofPokemon"); // Player's pokemon
-                    }
-                }
-                else if((tempP instanceof insert pokemon)){ // Insert chosen pokemon
-                    if(tempP.getZone() == Zone.EnemyZone){
-                        System.out.print(" eNameofPokemon");
-                    }
-                    else {
-                        System.out.print(" hNameofPokemon");
-                    }
-                }
-                else if((tempP instanceof insert pokemon)){ // Insert chosen pokemon
-                    if(tempP.getZone() == Zone.EnemyZone{
-                        System.out.print(" eNameofPokemon");
-                    }
-                    else {
-                        System.out.print(" hNameofPokemon");
-                    }
-                }
-                else if((tempP instanceof insert pokemon)){ // Insert chosen pokemon
-                    if(tempP.getZone() == Zone.EnemyZone){
-                        System.out.print(" eNameofPokemon");
-                    }
-                    else {
-                        System.out.print(" hNameofPokemon");
-                    }
-                }
-                else if((tempP instan ceof insert pokemon)){ // Insert chosen pokemon
-                    if(tempP.getZone() == Zone.EnemyZone){
-                        System.out.print(" eNameofPokemon");
-                    }
-                    else {
-                        System.out.print(" hNameofPokemon");
+                    if (computerPokemon[j].getPosition() == i) {
+                        System.out.print("| " + computerPokemon[j].getName());
+                        isdisplayed = true;
                     }
                 }
             }
-            System.out.println(" " + (i + 1));
+            if (!isdisplayed) {
+                System.out.println("| " + i + " ");
+            }
         }
-
         /* Prints out alphabet */
-        for(int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             System.out.print("  " + alphabet[i]);
         }
         System.out.println();
     }
+
 
     // Checks if spot is empty on gameboard
     public boolean emptyTile(int x, int y){
@@ -127,7 +105,7 @@ public class Board {
         if(y < 0 || y > 6)
             return true;
 
-        if(board[x][y].getPokemon() == null){
+        if(board[x][y].removePokemon() == null){
             return true;
         }
 

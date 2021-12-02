@@ -1,7 +1,5 @@
 package com.pokechess;
 
-import com.pokechess.board.Board;
-import com.pokechess.managers.BoardManager;
 import com.pokechess.managers.GameManager;
 
 public class Driver {

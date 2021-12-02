@@ -1,4 +1,4 @@
-package com.pokechess.player;
+package com.pokechess.board;
 
 public class Position {
     protected int alphabet, number;
