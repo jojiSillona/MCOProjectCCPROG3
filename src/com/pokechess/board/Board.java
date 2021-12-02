@@ -59,7 +59,7 @@ public class Board {
                            System.out.print("   ");
                        }
                    }
-                 else if((tempP == PokemonSelectManager.hasExistPokemon("SYLVEON",1))){
+                 else if((tempP == board[i][j].currPokemonPos) { // Insert chosen pokemonn
                         if(tempP.getZone() == Zone.EnemyTile){
                             System.out.print(" eSYL"); // Enemy's pokemon
                         }
@@ -67,7 +67,7 @@ public class Board {
                             System.out.print(" hSYL"); // Home's pokemon
                         }
                     }
-                 else if((tempP instanceof // insert pokemon )){
+                 else if((tempP instanceof // insert pokemon )){ // Insert chosen pokemon
                         if(tempP.getZone() == Zone.EnemyZone){
                         System.out.print(" eNameofPokemon"); // Enemy's pokemon
                         }
@@ -75,7 +75,7 @@ public class Board {
                         System.out.print(" hNameofPokemon"); // Player's pokemon
                     }
                 }
-                else if((tempP instanceof insert pokemon)){
+                else if((tempP instanceof insert pokemon)){ // Insert chosen pokemon
                     if(tempP.getZone() == Zone.EnemyZone){
                         System.out.print(" eNameofPokemon");
                     }
@@ -83,7 +83,7 @@ public class Board {
                         System.out.print(" hNameofPokemon");
                     }
                 }
-                else if((tempP instanceof insert pokemon)){
+                else if((tempP instanceof insert pokemon)){ // Insert chosen pokemon
                     if(tempP.getZone() == Zone.EnemyZone{
                         System.out.print(" eNameofPokemon");
                     }
@@ -91,7 +91,7 @@ public class Board {
                         System.out.print(" hNameofPokemon");
                     }
                 }
-                else if((tempP instanceof insert pokemon)){
+                else if((tempP instanceof insert pokemon)){ // Insert chosen pokemon
                     if(tempP.getZone() == Zone.EnemyZone){
                         System.out.print(" eNameofPokemon");
                     }
@@ -99,7 +99,7 @@ public class Board {
                         System.out.print(" hNameofPokemon");
                     }
                 }
-                else if((tempP instan ceof insert pokemon)){
+                else if((tempP instan ceof insert pokemon)){ // Insert chosen pokemon
                     if(tempP.getZone() == Zone.EnemyZone){
                         System.out.print(" eNameofPokemon");
                     }
