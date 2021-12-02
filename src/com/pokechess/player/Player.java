@@ -37,7 +37,10 @@ public class Player {
                            float hpReg, int revRate, int user){
         pokemonTeam[index] = new Pokemon(name, hp, atk, def, spd, hpReg, revRate);
         pokemonTeam[index].setBattleType(bt);
-        pokemonTeam[index].setPosition(user, index);
+    }
+
+    public Pokemon getPokemon(int index){
+        return pokemonTeam[index];
     }
 }
 

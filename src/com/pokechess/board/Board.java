@@ -37,36 +37,25 @@ public class Board {
     }
 
     // Adds pokemons on respective zones
-    public void setZones(Pokemon homePokemon, Pokemon computerPokemon) {
+    public void setZones(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
+        int i;
+        for(i = 0; i < 5; i++){
+            board[i][0].setCurrPosition(homePokemon[i]);
+            board[i][0].setStartingTilePosition(homePokemon[i]);
+        }
 
-        board[0][0].setCurrPosition(homePokemon);
-        board[1][0].setCurrPosition(homePokemon);
-        board[2][0].setCurrPosition(homePokemon);
-        board[3][0].setCurrPosition(homePokemon);
-        board[4][0].setCurrPosition(homePokemon);
-
-        board[0][0].setStartingTilePosition(homePokemon);
-        board[1][0].setStartingTilePosition(homePokemon);
-        board[2][0].setStartingTilePosition(homePokemon);
-        board[3][0].setStartingTilePosition(homePokemon);
-        board[4][0].setStartingTilePosition(homePokemon);
-
-
-        board[0][6].setCurrPosition(computerPokemon);
-        board[1][6].setCurrPosition(computerPokemon);
-        board[2][6].setCurrPosition(computerPokemon);
-        board[3][6].setCurrPosition(computerPokemon);
-        board[4][6].setCurrPosition(computerPokemon);
-
-        board[0][6].setStartingTilePosition(homePokemon);
-        board[1][6].setStartingTilePosition(homePokemon);
-        board[2][6].setStartingTilePosition(homePokemon);
-        board[3][6].setStartingTilePosition(homePokemon);
-        board[4][6].setStartingTilePosition(homePokemon);
+        for(i = 0; i < 5; i++){
+            board[i][6].setCurrPosition(computerPokemon[i]);
+            board[i][6].setStartingTilePosition(computerPokemon[i]);
+        }
     }
 
     // Prints out game screen
     public void printBoard(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
+        /*
+        TODO Ask for clarification about printBoard()'s indexing and loop function
+            -especially index 'i'
+         */
         boolean isdisplayed;
 
         for (int i = 1; i < 36; i++) {

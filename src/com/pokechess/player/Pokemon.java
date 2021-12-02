@@ -1,15 +1,12 @@
 package com.pokechess.player;
 
-import com.pokechess.board.Tile;
+import com.pokechess.board.Position;
 
 import java.util.*;
 public class Pokemon {
     private String name;
     private String battleType = "non";
     private boolean move = true;
-
-    private int xPos;
-    private int yPos;
 
     private int health;
 
@@ -20,7 +17,7 @@ public class Pokemon {
     private int revivalRate;
 
     private int startTile;
-    private int position;
+    private Position position;
 
     public Pokemon(String name, int health, float attack, float defense, int speed, float hpRegen,
                    int revivalRate) {
@@ -37,12 +34,11 @@ public class Pokemon {
         this.battleType = bt;
     }
 
-    public void setPosition(Tile position){
+    public void setPosition(Position position){
         this.position = position;
     }
 
-    public int getPosition(){
-
+    public Position getPosition(){
         return position;
     }
 
@@ -57,10 +53,6 @@ public class Pokemon {
 
         return hpRegen;
     }
-    public void setPosition(int posX, int posY){
-        this.xPos = posX;
-        this.yPos = posY;
-    }
 
     public String getName(){
         return name;
@@ -68,6 +60,10 @@ public class Pokemon {
 
     public String getBattleType(){
         return Objects.requireNonNullElse(this.battleType, "non");
+    }
+
+    public int getSpeed(){
+        return speed;
     }
 
 //    public boolean pokemonCanHeal(){
