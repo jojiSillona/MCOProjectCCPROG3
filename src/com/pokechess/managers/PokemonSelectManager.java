@@ -10,10 +10,15 @@ public class PokemonSelectManager {
     Scanner scn = new Scanner(System.in);
     private String input;
 
-    BoardManager mainGame = new BoardManager();
-    Player player = mainGame.player;
+    BoardManager mainGame;
+    Player player;
 
-    public void addPokemonToTeam(int i, String name, String battleType){
+    public PokemonSelectManager(BoardManager manager){
+        this.mainGame = manager;
+        player = mainGame.player;
+    }
+
+    public void addPokemonToTeam(int i, String name, String battleType, Player target, int user){
         String batTypeDisp = "";
         int h = 0;
         float at = 0;
@@ -68,7 +73,7 @@ public class PokemonSelectManager {
                 rR = 3;
             }
         }
-        player.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR);
+        target.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR, user);
     }
 
     public String identifyBattleType(String input){
@@ -79,31 +84,27 @@ public class PokemonSelectManager {
             case "CHARIZARD", "LUCARIO", "MACHAMP", "GARCHOMP" -> battleType = "alr";
             case "MAMOSWINE", "BLASTOISE", "SNORLAX", "CRUSTLE", "SLOWBRO" -> battleType = "def";
             case "BLISSEY", "ELDEGOSS", "MR. MIME", "WIGGLYTUFF" -> battleType = "sup";
-            default -> {
-                System.out.println("ERROR: Game does not recognize " + input + ". Please try again.");
-                battleType = "non";
-            }
+            default -> battleType = "non";
         }
         return battleType;
     }
 
-    public boolean hasMaxType(String input, int size){
+    public boolean hasMaxType(String input, int size, Player target){
         int i = 0;
         int count = 0;
 
-        while(i < size - 1 && count < 2){
-            if(Objects.equals(identifyBattleType(input), player.getType(i)))
+        while(i < size && count < 2){
+            if(Objects.equals(identifyBattleType(input), target.getType(i)))
                 count++;
             i++;
         }
         return count == 2;
     }
 
-    public boolean hasExistPokemon(String input, int size){
+    public boolean hasExistPokemon(String input, int size, Player target){
         int i = 0;
         while(i <= size){
-            if(Objects.equals(input, player.getName(i))) {
-                System.out.println("You already have this Pokemon!");
+            if(Objects.equals(input, target.getName(i))) {
                 return true;
             }
             i++;
@@ -123,7 +124,7 @@ public class PokemonSelectManager {
         System.out.println("DEFENDERS:");
         System.out.println("1. Mamoswine\n2. Blastoise\n3. Snorlax\n4. Crustle\n5. Slowbro");
         System.out.println("SUPPORTERS:");
-        System.out.println("1. Blissey\n2. Eldegoss\n3. Mr. Mime\n. Wigglytuff");
+        System.out.println("1. Blissey\n2. Eldegoss\n3. Mr. Mime\n4. Wigglytuff");
         for(int i = 0; i < 5; i++){
 
             boolean loop = true;
@@ -131,21 +132,24 @@ public class PokemonSelectManager {
                 System.out.print("Input Pokemon #" + (i + 1) + ": ");
                 input = scn.nextLine();
                 if(!Objects.equals(identifyBattleType(input), "non")){
-                    if(!hasExistPokemon(input, i))
+                    if(!hasExistPokemon(input, i, player))
                         if(i > 1){
-                            if(hasMaxType(input, i)) {
+                            if(hasMaxType(input, i, player))
                                 System.out.println("You cannot add this!");
-                            }
                             else
                                 loop = false;
                         } else {
                             loop = false;
                         }
+                    else
+                        System.out.println(input + " is already in your team! Try again");
                 }
+                else
+                    System.out.println("ERROR: Game does not recognize " + input + ". Please try again.");
             } while(loop);
 
 
-            addPokemonToTeam(i, input, identifyBattleType(input.toUpperCase(Locale.ROOT)));
+            addPokemonToTeam(i, input, identifyBattleType(input.toUpperCase(Locale.ROOT)), player, 0);
         }
     }
     public void askName(){

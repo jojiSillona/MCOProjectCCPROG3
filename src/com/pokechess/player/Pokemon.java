@@ -75,6 +75,10 @@ public class Pokemon {
 
 
     }
+    public void setPosition(int posX, int posY){
+        this.xPos = posX;
+        this.yPos = posY;
+    }
 
     public String getName(){
         return name;
