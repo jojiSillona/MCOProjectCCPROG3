@@ -4,7 +4,11 @@ package com.pokechess.board;
 import com.pokechess.player.Pokemon;
 
 public class Tile {
-
+    /*
+    PLEASE REMEMBER THE FOLLOWING
+    -ALPHABET CORRESPONDS TO X POSITION
+    -NUMBER CORRESPONDS TO Y POSITION
+     */
     Position alphaNum;
     Pokemon currPokemonPos;
     Pokemon startTile;
@@ -43,26 +47,22 @@ public class Tile {
             case 'g':
                 ialpha = 6;
                 break;
-            case 'h':
-                ialpha = 7;
-                break;
         }
         alphaNum = new Position(number, ialpha);
     }
 
     public void setCurrPosition(Pokemon newPokemonPos){
-        currPokemonPos = newPokemonPos;
-        newPokemonPos.setPosition(this);
+        this.currPokemonPos = newPokemonPos;
+        newPokemonPos.setPosition(alphaNum);
     }
 
     public Pokemon getCurrPosition(){
-
         return currPokemonPos;
     }
 
     public void setStartingTilePosition(Pokemon newStartTile){
         startTile = newStartTile;
-        newStartTile.setPosition(this);
+        newStartTile.setPosition(alphaNum);
     }
     public Pokemon getStartingTilePosition(){
         return startTile;
@@ -71,7 +71,7 @@ public class Tile {
     public Pokemon removePokemon(){
         Pokemon temp = currPokemonPos;
         currPokemonPos = null;
-        temp.setPosition(this);
+        temp.setPosition(alphaNum);
         return temp;
     }
 

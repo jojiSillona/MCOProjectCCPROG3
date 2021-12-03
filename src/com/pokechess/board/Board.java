@@ -37,62 +37,35 @@ public class Board {
     }
 
     // Adds pokemons on respective zones
-    public void setZones(Pokemon homePokemon, Pokemon computerPokemon) {
+    public void setZones(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
+        int i;
+        for(i = 0; i < 5; i++){
+            board[i][0].setCurrPosition(homePokemon[i]);
+            board[i][0].setStartingTilePosition(homePokemon[i]);
+        }
 
-        board[0][0].setCurrPosition(homePokemon);
-        board[1][0].setCurrPosition(homePokemon);
-        board[2][0].setCurrPosition(homePokemon);
-        board[3][0].setCurrPosition(homePokemon);
-        board[4][0].setCurrPosition(homePokemon);
-
-        board[0][0].setStartingTilePosition(homePokemon);
-        board[1][0].setStartingTilePosition(homePokemon);
-        board[2][0].setStartingTilePosition(homePokemon);
-        board[3][0].setStartingTilePosition(homePokemon);
-        board[4][0].setStartingTilePosition(homePokemon);
-
-
-        board[0][6].setCurrPosition(computerPokemon);
-        board[1][6].setCurrPosition(computerPokemon);
-        board[2][6].setCurrPosition(computerPokemon);
-        board[3][6].setCurrPosition(computerPokemon);
-        board[4][6].setCurrPosition(computerPokemon);
-
-        board[0][6].setStartingTilePosition(homePokemon);
-        board[1][6].setStartingTilePosition(homePokemon);
-        board[2][6].setStartingTilePosition(homePokemon);
-        board[3][6].setStartingTilePosition(homePokemon);
-        board[4][6].setStartingTilePosition(homePokemon);
+        for(i = 0; i < 5; i++){
+            board[i][6].setCurrPosition(computerPokemon[i]);
+            board[i][6].setStartingTilePosition(computerPokemon[i]);
+        }
     }
 
     // Prints out game screen
     public void printBoard(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
-        boolean isdisplayed;
-
-        for (int i = 1; i < 36; i++) {
-            isdisplayed = false;
-            for (int j = 0; j < 5; j++) {
-                Pokemon tempP = board[i][j].getCurrPosition();
-                if (tempP == null) {
-                    if (homePokemon[j].getPosition() == i) {
-                        System.out.print("| " + homePokemon[j].getName());
-                        isdisplayed = true;
-                    }
-                    if (computerPokemon[j].getPosition() == i) {
-                        System.out.print("| " + computerPokemon[j].getName());
-                        isdisplayed = true;
-                    }
+        for(int x = 0; x < 5; x++){
+            System.out.println("----------------------------------------------------");
+            for (int y = 0; y < 7; y++){
+                Pokemon pokeOnTile = board[x][y].getCurrPosition();
+                if(pokeOnTile != null){
+                    System.out.print("|" + pokeOnTile.getName() + "\t");
+                }
+                else {
+                    System.out.print("| " + board[x][y].getAlphabet() + board[x][y].getNumber() + "\t");
                 }
             }
-            if (!isdisplayed) {
-                System.out.println("| " + i + " ");
-            }
+            System.out.print("\n");
         }
-        /* Prints out alphabet */
-        for (int i = 0; i < 7; i++) {
-            System.out.print("  " + alphabet[i]);
-        }
-        System.out.println();
+        System.out.println("----------------------------------------------------");
     }
 
 
