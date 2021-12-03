@@ -1,32 +1,26 @@
 package com.pokechess.board;
 
 public class Position {
-    protected int alphabet, number;
+    protected int x, y;
 
-    public Position(int number, int alphabet){
-        /*
-        PLEASE REMEMBER THE FOLLOWING
-        -ALPHABET CORRESPONDS TO X POSITION
-        -NUMBER CORRESPONDS TO Y POSITION
-        -JOBERT
-         */
-        this.number = number;
-        this.alphabet = alphabet;
+    public Position(int y, int x){
+        this.y = y;
+        this.x = x;
     }
 
     public void setAlphabet(int alb){
-        this.alphabet = alb;
+        this.x = alb;
     }
 
     public void setNumber(int num){
-        this.number = num;
+        this.y = num;
     }
 
     public int getNumber(){
-        return number;
+        return y;
     }
     public int getAlphabet(){
-        return alphabet;
+        return x;
     }
 
 }

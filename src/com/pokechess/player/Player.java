@@ -1,6 +1,7 @@
 package com.pokechess.player;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Player {
@@ -34,9 +35,13 @@ public class Player {
         this.name = name;
     }
 
+    public String getPlayerName(){
+        return name;
+    }
+
     public void addPokemon(int index, String name, String bt, int hp, float atk, float def, int spd,
                            float hpReg, int revRate, int user){
-        pokemonTeam[index] = new Pokemon(name, hp, atk, def, spd, hpReg, revRate);
+        pokemonTeam[index] = new Pokemon(name.toUpperCase(Locale.ROOT), hp, atk, def, spd, hpReg, revRate);
         pokemonTeam[index].setBattleType(bt);
     }
 

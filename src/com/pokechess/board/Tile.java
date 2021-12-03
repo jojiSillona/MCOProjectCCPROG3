@@ -10,45 +10,26 @@ public class Tile {
     -NUMBER CORRESPONDS TO Y POSITION
      */
     Position alphaNum;
-    Pokemon currPokemonPos;
+    Pokemon currPokemonPos ;
     Pokemon startTile;
 
-    public Tile(int number, char alphabet){
-        createPosition(number, alphabet);
+    private boolean move;
+
+    public Tile(int x, int y ){
+        createPosition(x, y);
+    }
+
+    private void createPosition(int x, int y){
+        alphaNum = new Position(x, y);
         currPokemonPos = null;
     }
 
-    private void createPosition(int number, char alphabet){
+    public void showTileMovePossible(){
+        this.move = true;
+    }
 
-        int ialpha = 0;
-
-        /* Char file to integer file */
-
-        switch(alphabet) {
-
-            case 'a':
-                ialpha = 0;
-                break;
-            case 'b':
-                ialpha = 1;
-                break;
-            case 'c':
-                ialpha = 2;
-                break;
-            case 'd':
-                ialpha = 3;
-                break;
-            case 'e':
-                ialpha = 4;
-                break;
-            case 'f':
-                ialpha = 5;
-                break;
-            case 'g':
-                ialpha = 6;
-                break;
-        }
-        alphaNum = new Position(number, ialpha);
+    public boolean moveTrue(){
+        return move;
     }
 
     public void setCurrPosition(Pokemon newPokemonPos){

@@ -2,56 +2,61 @@ package com.pokechess.managers;
 
 import com.pokechess.board.Board;
 import com.pokechess.board.Position;
-import com.pokechess.board.Tile;
 import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class BoardManager {
     private Board board = new Board();
     public Player player = new Player();
     public Player computer = new Player();
 
+    //PLAYER: turn % 2 == 0
+    //COMPUT: turn % 2 != 0
+    private int turn;
+    private int battleCommand;
+
+    Scanner scn = new Scanner(System.in);
+    int choice;
+
     public void setupGame(){
-        Pokemon [] team1 = this.player.getPokemonTeam();
-        Pokemon [] team2 = this.computer.getPokemonTeam();
         board.createBoard();
-        board.setZones(team1, team2);
-        board.printBoard(team1, team2);
+        board.setZones(this.player.getPokemonTeam(), this.computer.getPokemonTeam());
     }
 
     public void runBoard(){
+        for(turn = 0; turn < 20; turn++){
+            if(turn % 2 == 0){
+                System.out.println("IT'S YOUR TURN!");
+                board.printBoard(this.player.getPokemonTeam(), this.computer.getPokemonTeam());
+                System.out.print("SELECT A POKEMON (use 0 - 4): ");
+                choice = scn.nextInt();
 
-        Player target;
-        int index;
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String line = "";
-        int i = 0;
+                Pokemon selectedPokemon = this.player.getPokemon(choice);
+                System.out.println("COMMANDS:");
+                System.out.println("1. MOVE\n2. INITIATE BATTLE\n3. DUNK\n4. HEAL");
+                System.out.print("PICK A COMMAND:");
+                choice = scn.nextInt();
 
-        board.createBoard();
-
-        while(true){
-            if(i == 0){
-                System.out.print("Player's move (Format - a1 a2): ");
-            }
-            else{
-                System.out.print("Computer's move:(Format - a1 a2) : ");
-            }
-
-            try{
-                line = in.readLine();
-            }catch(IOException e){
-                System.out.println("Error: No moved specified");
-                continue;
+                switch(choice){
+                    case 1:
+                        castPossibleMove(selectedPokemon);
+                        board.printBoard(this.player.getPokemonTeam(), this.computer.getPokemonTeam());
+                        break;
+                    case 2:
+                        System.out.println("No battle action here but yeah cool.");
+                        break;
+                    case 3:
+                        System.out.println("No dunk action here but yeah cool.");
+                        break;
+                    case 4:
+                        if(selectedPokemon.getBattleType() == "sup")
+                            heal(selectedPokemon);
+                }
             }
         }
-        // insert move di ko gets huhu
-
-
     }
 
 
@@ -101,9 +106,9 @@ public class BoardManager {
         return alpha;
     }
 
-    public void move(Player target, int index){
-        int movement = target.getPokemon(index).getSpeed();
-        Position playerPos = target.getPokemon(index).getPosition();
+    public void castPossibleMove(Pokemon targetPokemon){
+        int movement = targetPokemon.getSpeed();
+        Position playerPos = targetPokemon.getPosition();
         int x = playerPos.getAlphabet();
         int y = playerPos.getNumber();
 
@@ -113,64 +118,92 @@ public class BoardManager {
         //FORWARD MOVEMENT
         for(i = 0; i < movement; i++){
             availPos = Arrays.copyOf(availPos, availPos.length + 1);
-            availPos[availPos.length - 1].setAlphabet(x + movement);
-            availPos[availPos.length - 1].setNumber(y);
+
+            if(!board.outOfRange(x + movement, y) && board.emptyTile(x + movement, y)) {
+                availPos[availPos.length - 1].setAlphabet(x + movement);
+                availPos[availPos.length - 1].setNumber(y);
+            }
         }
 
         //BACKWARD MOVEMENT
         for(i = 0; i < movement; i++){
             availPos = Arrays.copyOf(availPos, availPos.length + 1);
-            availPos[availPos.length - 1].setAlphabet(x - movement);
-            availPos[availPos.length - 1].setNumber(y);
+
+            if(!board.outOfRange(x - movement, y) && board.emptyTile(x - movement, y)) {
+                availPos[availPos.length - 1].setAlphabet(x - movement);
+                availPos[availPos.length - 1].setNumber(y);
+            }
         }
 
         //UPWARD MOVEMENT
         for(i = 0; i < movement; i++){
             availPos = Arrays.copyOf(availPos, availPos.length + 1);
-            availPos[availPos.length - 1].setAlphabet(x);
-            availPos[availPos.length - 1].setNumber(y + movement);
+
+            if(!board.outOfRange(x, y + movement) && board.emptyTile(x, y + movement)) {
+                availPos[availPos.length - 1].setAlphabet(x);
+                availPos[availPos.length - 1].setNumber(y + movement);
+            }
         }
 
         //DOWNWARD MOVEMENT
         for(i = 0; i < movement; i++){
             availPos = Arrays.copyOf(availPos, availPos.length + 1);
-            availPos[availPos.length - 1].setAlphabet(x);
-            availPos[availPos.length - 1].setNumber(y - movement);
+
+            if(!board.outOfRange(x, y - movement) && board.emptyTile(x, y - movement)) {
+                availPos[availPos.length - 1].setAlphabet(x);
+                availPos[availPos.length - 1].setNumber(y - movement);
+            }
         }
 
         //DIAGONAL UP FORWARD MOVEMENT
         for(i = 0; i < movement; i++){
             availPos = Arrays.copyOf(availPos, availPos.length + 1);
-            availPos[availPos.length - 1].setAlphabet(x + movement);
-            availPos[availPos.length - 1].setNumber(y + movement);
+
+            if(!board.outOfRange(x + movement, y + movement) && board.emptyTile(x + movement, y + movement)) {
+                availPos[availPos.length - 1].setAlphabet(x + movement);
+                availPos[availPos.length - 1].setNumber(y + movement);
+            }
         }
 
         //DIAGONAL DOWN FORWARD MOVEMENT
         for(i = 0; i < movement; i++){
             availPos = Arrays.copyOf(availPos, availPos.length + 1);
-            availPos[availPos.length - 1].setAlphabet(x + movement);
-            availPos[availPos.length - 1].setNumber(y - movement);
+
+            if(!board.outOfRange(x + movement, y - movement) && board.emptyTile(x + movement, y - movement)) {
+                availPos[availPos.length - 1].setAlphabet(x + movement);
+                availPos[availPos.length - 1].setNumber(y - movement);
+            }
         }
 
         //DIAGONAL UP BACKWARD MOVEMENT
         for(i = 0; i < movement; i++){
             availPos = Arrays.copyOf(availPos, availPos.length + 1);
-            availPos[availPos.length - 1].setAlphabet(x - movement);
-            availPos[availPos.length - 1].setNumber(y + movement);
+
+            if(!board.outOfRange(x - movement, y + movement) && board.emptyTile(x - movement, y + movement)) {
+                availPos[availPos.length - 1].setAlphabet(x - movement);
+                availPos[availPos.length - 1].setNumber(y + movement);
+            }
         }
 
         //DIAGONAL DOWN BACKWARD MOVEMENT
         for(i = 0; i < movement; i++){
             availPos = Arrays.copyOf(availPos, availPos.length + 1);
-            availPos[availPos.length - 1].setAlphabet(x - movement);
-            availPos[availPos.length - 1].setNumber(y - movement);
+
+            if(!board.outOfRange(x - movement, y - movement) && board.emptyTile(x - movement, y - movement)) {
+                availPos[availPos.length - 1].setAlphabet(x - movement);
+                availPos[availPos.length - 1].setNumber(y - movement);
+            }
+        }
+
+        for(i = 0; i < availPos.length; i++){
+            this.board.board[availPos[i].getAlphabet()][availPos[i].getNumber()].showTileMovePossible();
         }
     }
 
-    public void heal(Player target, int index){
-        boolean heal = target.getPokemon(index).pokemonHeal();
-        int health = target.getPokemon(index).getMaxHp();
-        Position playerPos = target.getPokemon(index).getPosition();
+    public void heal(Pokemon target){
+        boolean heal = target.pokemonHeal();
+        int health = target.getMaxHp();
+        Position playerPos = target.getPosition();
         int x = playerPos.getAlphabet();
         int y = playerPos.getNumber();
 
@@ -210,11 +243,11 @@ public class BoardManager {
                 healthPos[healthPos.length - 1].setNumber(y - health);
 
                 health += 20;
-                System.out.println(target.getPokemon(index).getName() + " has recovered 20 energy points\n");
+                System.out.println(target.getName() + " has recovered 20 energy points.");
             }
         }
         else {
-            System.out.printf(" Sorr %s cannot be healed\n");
+            System.out.println(target.getName() + " cannot be healed.");
         }
     }
 
@@ -222,13 +255,12 @@ public class BoardManager {
 
     }
     private boolean isValid(String input){
-
         return true;
     }
+
     private void displayScreen(){
         System.out.println("\n\n\n\n\n POKECHESS BOARD SCREEN \n\n\n\n\n");
         // Print board
 
     }
-
 }

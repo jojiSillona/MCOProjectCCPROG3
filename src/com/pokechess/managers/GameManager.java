@@ -16,6 +16,7 @@ public class GameManager {
         pokemonSelectManager.showPokemonSelect();
         computerManager.selectPokemon();
         mainGame.setupGame();
+        mainGame.runBoard();
 
     }
 

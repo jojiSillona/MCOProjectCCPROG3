@@ -10,6 +10,7 @@ public class Pokemon {
 
     private int health;
 
+    private boolean pokemonHeal;
     private float attack;
     private float defense;
     private int speed;
@@ -52,6 +53,15 @@ public class Pokemon {
     public float getHpRegen() {
 
         return hpRegen;
+    }
+
+    public int getMaxHp() {
+
+        return health;
+    }
+
+    public boolean pokemonHeal(){
+        return pokemonHeal;
     }
 
     public String getName(){

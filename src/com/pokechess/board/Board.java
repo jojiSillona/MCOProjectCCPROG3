@@ -7,7 +7,7 @@ public class Board {
     private Pokemon[] homeTeam = new Pokemon[5];
     private Pokemon[] computerTeam = new Pokemon[5];
 
-    private Tile[][] board;
+    public Tile[][] board;
     char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
 
     // @param x = number
@@ -28,8 +28,9 @@ public class Board {
         board = new Tile[5][7];
         System.out.println("-----------------------------------");
         for (int i = 0; i < 5; i++) {
+            System.out.print(i);
             for (int j = 0; j < 7; j++) {
-                board[i][j] = new Tile(i, alphabet[j]);
+                board[i][j] = new Tile(i, j);
             }
             System.out.println();
             System.out.println("------------------------------");
@@ -60,7 +61,10 @@ public class Board {
                     System.out.print("|" + pokeOnTile.getName() + "\t");
                 }
                 else {
-                    System.out.print("| " + board[x][y].getAlphabet() + board[x][y].getNumber() + "\t");
+                    System.out.print("| " + board[x][y].getAlphabet() + board[x][y].getNumber());
+//                    if(board[x][y].moveTrue())
+//                        System.out.print("!");
+//                    System.out.print("\t");
                 }
             }
             System.out.print("\n");
@@ -68,16 +72,8 @@ public class Board {
         System.out.println("----------------------------------------------------");
     }
 
-
     // Checks if spot is empty on gameboard
     public boolean emptyTile(int x, int y){
-
-        if(x < 0 || x > 4)
-            return true;
-
-        if(y < 0 || y > 6)
-            return true;
-
         if(board[x][y].removePokemon() == null){
             return true;
         }
