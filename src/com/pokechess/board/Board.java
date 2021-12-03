@@ -52,48 +52,20 @@ public class Board {
 
     // Prints out game screen
     public void printBoard(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
-        /*
-        TODO Ask for clarification about printBoard()'s indexing and loop function
-            -especially index 'i'
-         */
-        boolean isdisplayed;
-
-        for(int x = 0; x < 7; x++){
-            for (int y = 0; y < 5; y++){
+        for(int x = 0; x < 5; x++){
+            System.out.println("----------------------------------------------------");
+            for (int y = 0; y < 7; y++){
                 Pokemon pokeOnTile = board[x][y].getCurrPosition();
                 if(pokeOnTile != null){
-                    System.out.print("|" + pokeOnTile.getName());
+                    System.out.print("|" + pokeOnTile.getName() + "\t");
                 }
                 else {
-                    System.out.print("| " + board[x][y].getAlphabet() + board[x][y].getNumber());
+                    System.out.print("| " + board[x][y].getAlphabet() + board[x][y].getNumber() + "\t");
                 }
             }
+            System.out.print("\n");
         }
-        /*
-        for (int i = 1; i < 36; i++) {
-            isdisplayed = false;
-            for (int j = 0; j < 5; j++) {
-                Pokemon tempP = board[i][j].getCurrPosition();
-                if (tempP != null) {
-                    if (homePokemon[j].getPosition() == i) {
-                        System.out.print("| " + homePokemon[j].getName());
-                        isdisplayed = true;
-                    }
-                    if (computerPokemon[j].getPosition() == i) {
-                        System.out.print("| " + computerPokemon[j].getName());
-                        isdisplayed = true;
-                    }
-                }
-            }
-            if (!isdisplayed) {
-                System.out.println("| " + i + " ");
-            }
-        }
-        /* Prints out alphabet */
-        for (int i = 0; i < 7; i++) {
-            System.out.print("  " + alphabet[i]);
-        }
-        System.out.println();
+        System.out.println("----------------------------------------------------");
     }
 
 

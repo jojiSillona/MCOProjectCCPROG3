@@ -1,5 +1,6 @@
 package com.pokechess.player;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Player {
@@ -39,6 +40,9 @@ public class Player {
         pokemonTeam[index].setBattleType(bt);
     }
 
+    public Pokemon[] getPokemonTeam(){
+        return Arrays.copyOf(pokemonTeam, pokemonTeam.length);
+    }
     public Pokemon getPokemon(int index){
         return pokemonTeam[index];
     }
