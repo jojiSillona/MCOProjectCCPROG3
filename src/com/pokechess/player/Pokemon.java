@@ -19,6 +19,8 @@ public class Pokemon {
     private int startTile;
     private Position position;
 
+    private boolean pokemonHeal;
+
     public Pokemon(String name, int health, float attack, float defense, int speed, float hpRegen,
                    int revivalRate) {
         this.name = name;
@@ -49,14 +51,25 @@ public class Pokemon {
         return startTile;
     }
 
-    public float getHpRegen() {
+    public int setHp(int health) {
 
-        return hpRegen;
+        this.health = health;
+    }
+
+
+    public int getMaxHp() {
+
+        return health;
+    }
+
+    public boolean pokemonHeal(){
+        return pokemonHeal;
     }
 
     public String getName(){
         return name;
     }
+
 
     public String getBattleType(){
         return Objects.requireNonNullElse(this.battleType, "non");
@@ -65,6 +78,7 @@ public class Pokemon {
     public int getSpeed(){
         return speed;
     }
+
 
 //    public boolean pokemonCanHeal(){
 //        return heal;

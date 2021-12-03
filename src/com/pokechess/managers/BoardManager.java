@@ -19,10 +19,8 @@ public class BoardManager {
     public void setupGame(){
         Pokemon [] team1 = this.player.getPokemonTeam();
         Pokemon [] team2 = this.computer.getPokemonTeam();
-        int turn = 0;
-
         board.setZones(team1, team2);
-        board.printBoard(team1, team2, turn);
+        board.printBoard(team1, team2);
     }
 
     public void runBoard(){
@@ -50,6 +48,8 @@ public class BoardManager {
                 continue;
             }
         }
+        // insert move di ko gets huhu
+
 
     }
 
@@ -166,8 +166,55 @@ public class BoardManager {
         }
     }
 
-    public void addPokemonOnZones(Pokemon pokemon){
+    public void heal(Player target, int index){
+        boolean heal = target.getPokemon(index).pokemonHeal();
+        int health = target.getPokemon(index).getMaxHp();
+        Position playerPos = target.getPokemon(index).getPosition();
+        int x = playerPos.getAlphabet();
+        int y = playerPos.getNumber();
 
+        Position [] healthPos = new Position[1];
+
+        System.out.print("Choose a pokemon to heal: ");
+        // Scanner must be a supporter battle type
+        // Pokemon must be beside
+        // Can only heal one ally at a time
+
+        if(heal == true){
+            for(int i = 0; i < health; i++){
+                healthPos = Arrays.copyOf(healthPos, healthPos.length + 1);
+
+                // forward heal
+                healthPos[healthPos.length - 1].setAlphabet(x + health);
+                healthPos[healthPos.length - 1].setNumber(y);
+
+                // backward heal
+                healthPos[healthPos.length - 1].setAlphabet(x - health);
+                healthPos[healthPos.length - 1].setNumber(y);
+
+                // upward heal
+                healthPos[healthPos.length - 1].setAlphabet(x);
+                healthPos[healthPos.length - 1].setNumber(y + health);
+
+                // downward heal
+                healthPos[healthPos.length - 1].setAlphabet(x);
+                healthPos[healthPos.length - 1].setNumber(y - health);
+
+                // diagonal up heal
+                healthPos[healthPos.length - 1].setAlphabet(x - health);
+                healthPos[healthPos.length - 1].setNumber(y + health);
+
+                // diagonal down heal
+                healthPos[healthPos.length - 1].setAlphabet(x - health);
+                healthPos[healthPos.length - 1].setNumber(y - health);
+
+                health += 20;
+                System.out.printf("%s has recovered 20 energy points\n", target.getPokemon(index).setHp(health));
+            }
+        }
+        else {
+            System.out.printf(" Sorr %s cannot be healed\n");
+        }
     }
 
     private void pause(int milliseconds){
