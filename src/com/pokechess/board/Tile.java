@@ -57,7 +57,6 @@ public class Tile {
     }
 
     public Pokemon getCurrPosition(){
-
         return currPokemonPos;
     }
 

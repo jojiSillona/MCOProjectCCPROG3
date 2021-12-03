@@ -58,11 +58,23 @@ public class Board {
          */
         boolean isdisplayed;
 
+        for(int x = 0; x < 7; x++){
+            for (int y = 0; y < 5; y++){
+                Pokemon pokeOnTile = board[x][y].getCurrPosition();
+                if(pokeOnTile != null){
+                    System.out.print("|" + pokeOnTile.getName());
+                }
+                else {
+                    System.out.print("| " + board[x][y].getAlphabet() + board[x][y].getNumber());
+                }
+            }
+        }
+        /*
         for (int i = 1; i < 36; i++) {
             isdisplayed = false;
             for (int j = 0; j < 5; j++) {
                 Pokemon tempP = board[i][j].getCurrPosition();
-                if (tempP == null) {
+                if (tempP != null) {
                     if (homePokemon[j].getPosition() == i) {
                         System.out.print("| " + homePokemon[j].getName());
                         isdisplayed = true;
