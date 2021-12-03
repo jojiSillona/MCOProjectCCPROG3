@@ -2,9 +2,13 @@ package com.pokechess.managers;
 
 import com.pokechess.board.Board;
 import com.pokechess.board.Position;
+import com.pokechess.board.Tile;
 import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class BoardManager {
@@ -15,15 +19,85 @@ public class BoardManager {
     public void setupGame(){
         Pokemon [] team1 = this.player.getPokemonTeam();
         Pokemon [] team2 = this.computer.getPokemonTeam();
+        int turn = 0;
+
         board.setZones(team1, team2);
-        board.printBoard(team1, team2);
+        board.printBoard(team1, team2, turn);
     }
 
     public void runBoard(){
-        this.player = player;
 
-        Player player1 = new Player();
+        Player target;
+        int index;
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String line = "";
+        int i = 0;
+
         board.createBoard();
+
+        while(true){
+            if(i == 0){
+                System.out.print("Player's move (Format - a1 a2): ");
+            }
+            else{
+                System.out.print("Computer's move:(Format - a1 a2) : ");
+            }
+
+            try{
+                line = in.readLine();
+            }catch(IOException e){
+                System.out.println("Error: No moved specified");
+                continue;
+            }
+        }
+
+    }
+
+
+    // Translates a alpha-number move to a move that would
+    // work with a 2D array
+    public int[] translatePosition(String move){
+
+        if(move.charAt(0) < 'a' || move.charAt(0) > 'g'){
+            throw new IllegalArgumentException();
+        }
+
+        int[] alpha = new int[2];
+        switch(move.charAt(0)){
+            case 'a':
+                alpha[1] = 0;
+                break;
+            case 'b':
+                alpha[1] = 1;
+                break;
+            case 'c':
+                alpha[1] = 2;
+                break;
+            case 'd':
+                alpha[1] = 3;
+                break;
+            case 'e':
+                alpha[1] = 4;
+                break;
+            case 'f':
+                alpha[1] = 5;
+                break;
+            case 'g':
+                alpha[1] = 6;
+                break;
+        }
+
+        try{
+            alpha[0] = Integer.parseInt(move.substring(1));
+            if(alpha[0] < 1 || alpha[0] > 6)
+                throw new IllegalArgumentException();
+
+            alpha[0] = alpha[0] - 1;
+        }catch(NumberFormatException d){
+            throw new IllegalArgumentException();
+        }
+
+        return alpha;
     }
 
     public void move(Player target, int index){

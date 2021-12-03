@@ -8,7 +8,6 @@ public class Position {
         PLEASE REMEMBER THE FOLLOWING
         -ALPHABET CORRESPONDS TO X POSITION
         -NUMBER CORRESPONDS TO Y POSITION
-        -JOBERT
          */
         this.number = number;
         this.alphabet = alphabet;

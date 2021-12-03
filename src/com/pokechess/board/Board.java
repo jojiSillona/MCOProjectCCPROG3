@@ -11,7 +11,7 @@ public class Board {
     char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
 
     // @param x = number
-	 // @param y = alphabet
+    // @param y = alphabet
 
     // alphabet = lowest row position
     // numbers = rightest column position
@@ -26,13 +26,10 @@ public class Board {
     // Blank board template
     public void createBoard() {
         board = new Tile[5][7];
-        System.out.println("-----------------------------------");
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 7; j++) {
                 board[i][j] = new Tile(i, alphabet[j]);
             }
-            System.out.println();
-            System.out.println("------------------------------");
         }
     }
 
@@ -51,7 +48,11 @@ public class Board {
     }
 
     // Prints out game screen
-    public void printBoard(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
+    public void printBoard(Pokemon[] homePokemon, Pokemon[] computerPokemon, int turn) {
+
+        System.out.println("POKECHESS UNITE GAMEBOARD");
+        System.out.println(turn + "  turns out of 20 left");
+
         for(int x = 0; x < 5; x++){
             System.out.println("----------------------------------------------------");
             for (int y = 0; y < 7; y++){
@@ -63,8 +64,13 @@ public class Board {
                     System.out.print("| " + board[x][y].getAlphabet() + board[x][y].getNumber() + "\t");
                 }
             }
+            System.out.println(" " + (x + 1));
             System.out.print("\n");
         }
+        for(int x = 0; x < 7; x++){
+            System.out.print("\t   " + alphabet[x]);
+        }
+        System.out.println();
         System.out.println("----------------------------------------------------");
     }
 
@@ -103,4 +109,3 @@ public class Board {
     }
 
 }
-
