@@ -11,7 +11,7 @@ public class Board {
     char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
 
     // @param x = number
-	 // @param y = alphabet
+    // @param y = alphabet
 
     // alphabet = lowest row position
     // numbers = rightest column position

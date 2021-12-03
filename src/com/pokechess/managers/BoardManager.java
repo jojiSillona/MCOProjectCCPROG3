@@ -15,15 +15,13 @@ public class BoardManager {
     public void setupGame(){
         Pokemon [] team1 = this.player.getPokemonTeam();
         Pokemon [] team2 = this.computer.getPokemonTeam();
+        board.createBoard();
         board.setZones(team1, team2);
         board.printBoard(team1, team2);
     }
 
     public void runBoard(){
-        this.player = player;
 
-        Player player1 = new Player();
-        board.createBoard();
     }
 
     public void move(Player target, int index){
