@@ -224,7 +224,7 @@ public class BoardManager {
         //check if player has a point
         //if there is a defender inside, he must defeat him first.
         //if none then
-        if(this.board.isGoalTile(target.getPokemon(index).getPosition())) {
+        if(target.getPokemon(index).getPosition().getAlphabet() == 5) {
             int temp = target.getPokemon(index).getCarriedPoints();
             target.getPokemon(index).setCarriedPoints(0);
             target.setPoints(temp);
