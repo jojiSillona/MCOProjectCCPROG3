@@ -202,6 +202,7 @@ public class BoardManager {
     }
 
     public void initiateBattle(Board board, Pokemon player, Pokemon enemy){
+        //check if battle is feasible if not prompt player no one is fighting them
         Random rnd = new Random();
         int probability = rnd.nextInt(1);
 
@@ -215,6 +216,18 @@ public class BoardManager {
         else {
             System.out.println(enemy.getName() + "wins!");
             //remove player pokemon on tile
+        }
+    }
+
+    public void dunk(Player target, int index){
+        //check if player is beside the goal zone
+        //check if player has a point
+        //if there is a defender inside, he must defeat him first.
+        //if none then
+        if(this.board.isGoalTile(target.getPokemon(index).getPosition())) {
+            int temp = target.getPokemon(index).getCarriedPoints();
+            target.getPokemon(index).setCarriedPoints(0);
+            target.setPoints(temp);
         }
     }
 

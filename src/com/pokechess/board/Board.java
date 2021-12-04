@@ -92,6 +92,14 @@ public class Board {
         return false;
     }
 
+    public boolean isGoalTile(Position[][] controlTile){
+        for(int i = 0; i < 5; i++){
+            if(controlTile == this.board[6][0])
+                return true;
+        }
+        return false;
+    }
+
     // Gets the tile position
     public Tile getTile(int x, int y){
 

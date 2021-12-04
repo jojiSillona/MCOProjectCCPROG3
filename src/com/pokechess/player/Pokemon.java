@@ -17,6 +17,8 @@ public class Pokemon {
     private float hpRegen;
     private int revivalRate;
 
+    private int carriedPoints;
+
     private int startTile;
     private Position position;
 
@@ -76,6 +78,13 @@ public class Pokemon {
         return speed;
     }
 
+    public int getCarriedPoints(){
+        return carriedPoints;
+    }
+
+    public void setCarriedPoints(int addPoint){
+        this.carriedPoints = addPoint;
+    }
 //    public boolean pokemonCanHeal(){
 //        return heal;
 //
