@@ -57,7 +57,7 @@ public class Board {
             System.out.println("----------------------------------------------------");
             for (int y = 0; y < 7; y++){
                 Pokemon pokeOnTile = board[x][y].getCurrPosition();
-                if(pokeOnTile != null){
+                if(pokeOnTile.getName() != "non"){
                     System.out.print("|" + pokeOnTile.getName() + "\t");
                 }
                 else {
@@ -74,7 +74,7 @@ public class Board {
 
     // Checks if spot is empty on gameboard
     public boolean emptyTile(int x, int y){
-        if(board[x][y].removePokemon() == null){
+        if(board[x][y].removePokemon().getName() == "non"){
             return true;
         }
 

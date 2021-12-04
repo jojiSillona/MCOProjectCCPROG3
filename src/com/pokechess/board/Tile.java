@@ -17,11 +17,12 @@ public class Tile {
 
     public Tile(int x, int y ){
         createPosition(x, y);
+        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0);
     }
 
     private void createPosition(int x, int y){
         alphaNum = new Position(x, y);
-        currPokemonPos = null;
+
     }
 
     public void showTileMovePossible(){
@@ -51,7 +52,7 @@ public class Tile {
 
     public Pokemon removePokemon(){
         Pokemon temp = currPokemonPos;
-        currPokemonPos = null;
+        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0);
         temp.setPosition(alphaNum);
         return temp;
     }

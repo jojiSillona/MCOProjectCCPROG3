@@ -6,6 +6,7 @@ import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class BoardManager {
@@ -197,6 +198,23 @@ public class BoardManager {
 
         for(i = 0; i < availPos.length; i++){
             this.board.board[availPos[i].getAlphabet()][availPos[i].getNumber()].showTileMovePossible();
+        }
+    }
+
+    public void initiateBattle(Board board, Pokemon player, Pokemon enemy){
+        Random rnd = new Random();
+        int probability = rnd.nextInt(1);
+
+        System.out.println("We haven't implemented battle so we randomly choose who wins");
+        //Player wins if probability is 0
+        //Enemy wins if probability is 1
+        if(probability == 0) {
+            System.out.println(player.getName() + "wins!");
+            //remove enemy pokemon on tile
+        }
+        else {
+            System.out.println(enemy.getName() + "wins!");
+            //remove player pokemon on tile
         }
     }
 
