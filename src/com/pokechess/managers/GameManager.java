@@ -1,15 +1,18 @@
 package com.pokechess.managers;
 
-import java.util.Scanner;
+import com.pokechess.gui.CharacterSelectScreen;
+import com.pokechess.gui.Frame;
 
 public class GameManager {
-    Scanner scn = new Scanner(System.in);
-    private boolean loop = true;
-
     BoardManager mainGame = new BoardManager();
     PokemonSelectManager pokemonSelectManager = new PokemonSelectManager(mainGame);
     ComputerManager computerManager = new ComputerManager(mainGame);
 
+    private Frame frame;
+
+    public GameManager(){
+        this.frame = new Frame(1280, 720);
+    }
 
     public void startGame(){
         pokemonSelectManager.askName();
@@ -17,21 +20,19 @@ public class GameManager {
         computerManager.selectPokemon();
         mainGame.setupGame();
         mainGame.runBoard();
+    }
 
+    public void run(){
+        this.showTitleScreen();
     }
 
     public void showTitleScreen(){
-        System.out.println("POKECHESS UNITE");
-        do {
-            System.out.print("Type \"START\" to begin: ");
-            String input = scn.nextLine();
-            if (input.equalsIgnoreCase("START"))
-                loop = false;
-            else if (input.equalsIgnoreCase("EXIT"))
-                System.exit(0);
-            else
-                System.out.println("ERROR: Game does not recognize input. Try again.");
-        } while (loop);
-        startGame();
+        TitleScreenManager titleManager =  new TitleScreenManager(this.frame);
+        this.frame.setScreen(titleManager.getGui());
+
+    }
+    public void showCharSelect(){
+        CharSelScreenManager cssManager = new CharSelScreenManager(this.frame);
+        this.frame.setScreen(cssManager.getGui());
     }
 }
