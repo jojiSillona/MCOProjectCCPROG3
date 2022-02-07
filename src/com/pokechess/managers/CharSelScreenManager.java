@@ -6,11 +6,12 @@ import com.pokechess.gui.Frame;
 import java.awt.*;
 
 public class CharSelScreenManager {
-
+    private GameManager manager;
     private CharacterSelectScreen gui;
 
-    public CharSelScreenManager(Frame frame){
-        this.gui = new CharacterSelectScreen(frame);
+    public CharSelScreenManager(GameManager manager, Frame frame){
+        this.manager = manager;
+        this.gui = new CharacterSelectScreen(this, frame);
 
     }
 

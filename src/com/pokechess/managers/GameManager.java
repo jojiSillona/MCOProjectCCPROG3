@@ -27,12 +27,12 @@ public class GameManager {
     }
 
     public void showTitleScreen(){
-        TitleScreenManager titleManager =  new TitleScreenManager(this.frame);
+        TitleScreenManager titleManager =  new TitleScreenManager(this, this.frame);
         this.frame.setScreen(titleManager.getGui());
 
     }
     public void showCharSelect(){
-        CharSelScreenManager cssManager = new CharSelScreenManager(this.frame);
+        CharSelScreenManager cssManager = new CharSelScreenManager(this ,this.frame);
         this.frame.setScreen(cssManager.getGui());
     }
 }

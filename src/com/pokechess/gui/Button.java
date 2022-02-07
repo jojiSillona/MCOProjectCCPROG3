@@ -22,4 +22,13 @@ public class Button extends JButton {
         this.setSize(this.getIcon().getIconWidth(), this.getIcon().getIconHeight());
         this.addMouseListener(listener);
     }
+
+    public void changeImageIcon(ImageIcon altButtonImage){
+        this.buttonImage = altButtonImage;
+        this.setIcon(this.buttonImage);
+    }
+
+    public ImageIcon getImageIcon(){
+        return this.buttonImage;
+    }
 }
