@@ -48,6 +48,10 @@ public final class Board {
         }
     }
 
+    public void movePokemon(Tile current, Tile destination){
+        current.currPokemonPos.setPosition(destination.getAlphaNum());
+    }
+
     // Prints out game screen
     public void printBoard(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
         for(int x = 0; x < 5; x++){

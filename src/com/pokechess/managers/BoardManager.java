@@ -7,6 +7,7 @@ import com.pokechess.gui.Frame;
 import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -15,10 +16,16 @@ public class BoardManager {
     public Board board = new Board();
     public Player player = new Player();
     public Player computer = new Player();
+    public Frame frame;
 
     public BoardScreen gui;
+    public ArrayList <Position> possibleMoves = new ArrayList<>();
 
     public BoardManager(Frame frame){
+        this.frame = frame;
+    }
+
+    public void initGui(){
         this.gui = new BoardScreen(this, frame, this.board);
     }
 
@@ -120,94 +127,100 @@ public class BoardManager {
         Position playerPos = targetPokemon.getPosition();
         int x = playerPos.getAlphabet();
         int y = playerPos.getNumber();
-
-        Position [] availPos = new Position[1];
         int i;
 
         //FORWARD MOVEMENT
         for(i = 0; i < movement; i++){
-            availPos = Arrays.copyOf(availPos, availPos.length + 1);
+            Position P = new Position(x,y);
 
             if(!board.outOfRange(x + movement, y) && board.emptyTile(x + movement, y)) {
-                availPos[availPos.length - 1].setAlphabet(x + movement);
-                availPos[availPos.length - 1].setNumber(y);
+                P.setAlphabet(x + movement);
+                P.setNumber(y);
+                possibleMoves.add(P);
             }
         }
 
         //BACKWARD MOVEMENT
         for(i = 0; i < movement; i++){
-            availPos = Arrays.copyOf(availPos, availPos.length + 1);
+            Position P = new Position(x,y);
 
             if(!board.outOfRange(x - movement, y) && board.emptyTile(x - movement, y)) {
-                availPos[availPos.length - 1].setAlphabet(x - movement);
-                availPos[availPos.length - 1].setNumber(y);
+                P.setAlphabet(x - movement);
+                P.setNumber(y);
+                possibleMoves.add(P);
             }
         }
 
         //UPWARD MOVEMENT
         for(i = 0; i < movement; i++){
-            availPos = Arrays.copyOf(availPos, availPos.length + 1);
+            Position P = new Position(x,y);
 
             if(!board.outOfRange(x, y + movement) && board.emptyTile(x, y + movement)) {
-                availPos[availPos.length - 1].setAlphabet(x);
-                availPos[availPos.length - 1].setNumber(y + movement);
+
+                P.setAlphabet(x);
+                P.setNumber(y + movement);
+                possibleMoves.add(P);
             }
         }
 
         //DOWNWARD MOVEMENT
         for(i = 0; i < movement; i++){
-            availPos = Arrays.copyOf(availPos, availPos.length + 1);
+            Position P = new Position(x,y);
 
             if(!board.outOfRange(x, y - movement) && board.emptyTile(x, y - movement)) {
-                availPos[availPos.length - 1].setAlphabet(x);
-                availPos[availPos.length - 1].setNumber(y - movement);
+                P.setAlphabet(x);
+                P.setNumber(y - movement);
+
+                possibleMoves.add(P);
             }
         }
 
         //DIAGONAL UP FORWARD MOVEMENT
         for(i = 0; i < movement; i++){
-            availPos = Arrays.copyOf(availPos, availPos.length + 1);
+            Position P = new Position(x,y);
 
             if(!board.outOfRange(x + movement, y + movement) && board.emptyTile(x + movement, y + movement)) {
-                availPos[availPos.length - 1].setAlphabet(x + movement);
-                availPos[availPos.length - 1].setNumber(y + movement);
+                P.setAlphabet(x + movement);
+                P.setNumber(y + movement);
+                possibleMoves.add(P);
             }
         }
 
         //DIAGONAL DOWN FORWARD MOVEMENT
         for(i = 0; i < movement; i++){
-            availPos = Arrays.copyOf(availPos, availPos.length + 1);
+            Position P = new Position(x,y);
 
             if(!board.outOfRange(x + movement, y - movement) && board.emptyTile(x + movement, y - movement)) {
-                availPos[availPos.length - 1].setAlphabet(x + movement);
-                availPos[availPos.length - 1].setNumber(y - movement);
+
+                P.setAlphabet(x + movement);
+                P.setNumber(y - movement);
+                possibleMoves.add(P);
             }
         }
 
         //DIAGONAL UP BACKWARD MOVEMENT
         for(i = 0; i < movement; i++){
-            availPos = Arrays.copyOf(availPos, availPos.length + 1);
+            Position P = new Position(x,y);
 
             if(!board.outOfRange(x - movement, y + movement) && board.emptyTile(x - movement, y + movement)) {
-                availPos[availPos.length - 1].setAlphabet(x - movement);
-                availPos[availPos.length - 1].setNumber(y + movement);
+                P.setAlphabet(x - movement);
+                P.setNumber(y + movement);
+                possibleMoves.add(P);
             }
         }
 
         //DIAGONAL DOWN BACKWARD MOVEMENT
         for(i = 0; i < movement; i++){
-            availPos = Arrays.copyOf(availPos, availPos.length + 1);
+            Position P = new Position(x,y);
 
             if(!board.outOfRange(x - movement, y - movement) && board.emptyTile(x - movement, y - movement)) {
-                availPos[availPos.length - 1].setAlphabet(x - movement);
-                availPos[availPos.length - 1].setNumber(y - movement);
+                P.setAlphabet(x - movement);
+                P.setNumber(y - movement);
+                possibleMoves.add(P);
             }
         }
-
-        for(i = 0; i < availPos.length; i++){
-            this.board.board[availPos[i].getAlphabet()][availPos[i].getNumber()].showTileMovePossible();
-        }
     }
+
 
     public void initiateBattle(Board board, Pokemon player, Pokemon enemy){
         //check if battle is feasible if not prompt player no one is fighting them
