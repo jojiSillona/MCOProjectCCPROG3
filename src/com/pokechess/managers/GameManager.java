@@ -1,25 +1,16 @@
 package com.pokechess.managers;
 
-import com.pokechess.gui.CharacterSelectScreen;
 import com.pokechess.gui.Frame;
 
 public class GameManager {
-    BoardManager mainGame = new BoardManager();
-    PokemonSelectManager pokemonSelectManager = new PokemonSelectManager(mainGame);
-    ComputerManager computerManager = new ComputerManager(mainGame);
-
     private Frame frame;
+    BoardManager mainGame;
+
+
 
     public GameManager(){
         this.frame = new Frame(1280, 720);
-    }
-
-    public void startGame(){
-        pokemonSelectManager.askName();
-        pokemonSelectManager.showPokemonSelect();
-        computerManager.selectPokemon();
-        mainGame.setupGame();
-        mainGame.runBoard();
+        mainGame = new BoardManager(this.frame);
     }
 
     public void run(){
@@ -32,7 +23,17 @@ public class GameManager {
 
     }
     public void showCharSelect(){
-        CharSelScreenManager cssManager = new CharSelScreenManager(this ,this.frame);
+        CharSelScreenManager cssManager = new CharSelScreenManager(this, this.mainGame, this.frame);
         this.frame.setScreen(cssManager.getGui());
     }
+
+    public void showCasePokemon(){
+        ComputerManager compManager = new ComputerManager(this, this.mainGame, this.frame);
+        this.frame.setScreen(compManager.getGui());
+    }
+
+    public void showBoardScreen(){
+        this.frame.setScreen(mainGame.getGui());
+    }
+
 }

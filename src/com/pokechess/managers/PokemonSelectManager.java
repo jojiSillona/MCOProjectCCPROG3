@@ -1,6 +1,5 @@
 package com.pokechess.managers;
 
-import com.pokechess.board.Board;
 import com.pokechess.player.Player;
 
 import java.util.Locale;
@@ -12,8 +11,8 @@ public class PokemonSelectManager {
     private String input;
 
 
-    BoardManager mainGame;
-    Player player;
+    public BoardManager mainGame;
+    public Player player;
 
     public PokemonSelectManager(BoardManager manager){
         this.mainGame = manager;
@@ -81,11 +80,11 @@ public class PokemonSelectManager {
     public String identifyBattleType(String input){
         String battleType;
         switch (input.toUpperCase(Locale.ROOT)) {
-            case "SYLVEON", "GARDEVOIR", "PIKACHU", "GRENINJA", "VENUSAUR", "ALOLAN NINETALES", "CRAMORANT", "CINDERACE" -> battleType = "atk";
+            case "SYLVEON", "GARDEVOIR", "PIKACHU", "GRENINJA", "VENUSAUR", "NINETALES", "CRAMORANT", "CINDERACE" -> battleType = "atk";
             case "ZERAORA", "TALONFLAME", "ABSOL", "GENGAR" -> battleType = "spd";
             case "CHARIZARD", "LUCARIO", "MACHAMP", "GARCHOMP" -> battleType = "alr";
             case "MAMOSWINE", "BLASTOISE", "SNORLAX", "CRUSTLE", "SLOWBRO" -> battleType = "def";
-            case "BLISSEY", "ELDEGOSS", "MR. MIME", "WIGGLYTUFF" -> battleType = "sup";
+            case "BLISSEY", "ELDEGOSS", "MRMIME", "WIGGLYTUFF" -> battleType = "sup";
             default -> battleType = "non";
         }
         return battleType;
@@ -152,10 +151,5 @@ public class PokemonSelectManager {
 
             addPokemonToTeam(i, input, identifyBattleType(input.toUpperCase(Locale.ROOT)), player, 0);
         }
-    }
-    public void askName(){
-        System.out.print("Type your name: ");
-        input = scn.nextLine();
-        player.setName(input);
     }
 }

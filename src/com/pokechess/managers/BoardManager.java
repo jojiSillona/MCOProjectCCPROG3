@@ -2,6 +2,8 @@ package com.pokechess.managers;
 
 import com.pokechess.board.Board;
 import com.pokechess.board.Position;
+import com.pokechess.gui.BoardScreen;
+import com.pokechess.gui.Frame;
 import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
@@ -13,6 +15,12 @@ public class BoardManager {
     private Board board = new Board();
     public Player player = new Player();
     public Player computer = new Player();
+
+    private BoardScreen gui;
+
+    public BoardManager(Frame frame){
+        this.gui = new BoardScreen(this, frame);
+    }
 
     //PLAYER: turn % 2 == 0
     //COMPUT: turn % 2 != 0
@@ -293,5 +301,9 @@ public class BoardManager {
         System.out.println("\n\n\n\n\n POKECHESS BOARD SCREEN \n\n\n\n\n");
         // Print board
 
+    }
+
+    public BoardScreen getGui(){
+        return gui;
     }
 }

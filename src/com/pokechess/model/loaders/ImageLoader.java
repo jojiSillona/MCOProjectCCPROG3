@@ -18,10 +18,22 @@ public class ImageLoader {
 
     //CHARACTER SELECT SCREEN-RELATED IMAGES
     public static final String BG_CSS = "/com/pokechess/gui/images/bg/background-2.jpg";
+    public static final String PIKACHU = "/com/pokechess/gui/images/pokemonselect/rightface/full-pikachu.png";
+    public static final String PIKA_ATK = "/com/pokechess/gui/images/skill/pikachu-attack.png";
+    public static final String PIKA_DEF = "/com/pokechess/gui/images/skill/pikachu-defend.png";
+    public static final String PIKA_UNI = "/com/pokechess/gui/images/skill/pikachu-unite.png";
+
+    public static final String CARD_IDLE = "/com/pokechess/gui/images/cards/idle/card-back.png";
 
     //BUTTONS
     public static final String BUTTON_IDLE = "/com/pokechess/gui/images/button/button-1.png";
     public static final String BUTTON_HOVER = "/com/pokechess/gui/images/button/button-1-selected.png";
+
+    //BOARD-RELATED IMAGES
+    public static final String BG_BOARD = "/com/pokechess/gui/images/bg/background-3.png";
+
+    //SHOWCASE-RELATED IMAGES
+    public static final String BG_BATTLE = "/com/pokechess/gui/images/bg/background-5.png";
 
 
     public static final Image loadImage(String path){

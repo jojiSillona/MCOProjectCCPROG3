@@ -1,25 +1,34 @@
 package com.pokechess.managers;
 
+import com.pokechess.gui.Frame;
+import com.pokechess.gui.ShowcasePokemon;
 import com.pokechess.player.Player;
 
 import java.util.Random;
 
 public class ComputerManager {
-
+    public GameManager gameManager;
     BoardManager manager;
     PokemonSelectManager selector;
-    Player computer;
+    public Player computer;
+    public Player ally;
 
-    public ComputerManager(BoardManager mgr){
+    private ShowcasePokemon gui;
+
+    public ComputerManager(GameManager gmgr, BoardManager mgr, Frame frame){
+        this.gameManager = gmgr;
         this.manager = mgr;
         this.selector = new PokemonSelectManager(manager);
         this.computer = manager.computer;
+        this.ally = manager.player;
+
+        this.gui = new ShowcasePokemon(this, frame);
     }
     public void selectPokemon(){
-        String[] names = {"SYLVEON", "GARDEVOIR", "PIKACHU", "GRENINJA", "VENUSAUR", "ALOLAN NINETALES",
+        String[] names = {"SYLVEON", "GARDEVOIR", "PIKACHU", "GRENINJA", "VENUSAUR", "NINETALES",
                 "CRAMORANT", "CINDERACE", "ZERAORA", "TALONFLAME", "ABSOL", "GENGAR", "CHARIZARD", "LUCARIO",
                 "MACHAMP", "GARCHOMP", "MAMOSWINE", "BLASTOISE", "SNORLAX", "CRUSTLE", "SLOWBRO", "BLISSEY",
-                "ELDEGOSS", "MR. MIME", "WIGGLYTUFF"};  //25 ALL IN ALL
+                "ELDEGOSS", "MRMIME", "WIGGLYTUFF"};  //25 ALL IN ALL
         Random rnd = new Random();
         int choice;
 
@@ -41,4 +50,10 @@ public class ComputerManager {
         }
 
     }
+
+    public ShowcasePokemon getGui(){
+        return gui;
+    }
+
+
 }
