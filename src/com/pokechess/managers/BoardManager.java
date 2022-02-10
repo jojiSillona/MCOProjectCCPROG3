@@ -12,14 +12,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BoardManager {
-    private Board board = new Board();
+    public Board board = new Board();
     public Player player = new Player();
     public Player computer = new Player();
 
-    private BoardScreen gui;
+    public BoardScreen gui;
 
     public BoardManager(Frame frame){
-        this.gui = new BoardScreen(this, frame);
+        this.gui = new BoardScreen(this, frame, this.board);
     }
 
     //PLAYER: turn % 2 == 0
@@ -31,8 +31,8 @@ public class BoardManager {
     int choice;
 
     public void setupGame(){
-        board.createBoard();
-        board.setZones(this.player.getPokemonTeam(), this.computer.getPokemonTeam());
+        board.setZones(player.getPokemonTeam(), computer.getPokemonTeam());
+
     }
 
     public void runBoard(){

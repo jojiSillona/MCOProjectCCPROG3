@@ -2,7 +2,7 @@ package com.pokechess.board;
 
 import com.pokechess.player.Pokemon;
 
-public class Board {
+public final class Board {
 
     private Pokemon[] homeTeam = new Pokemon[5];
     private Pokemon[] computerTeam = new Pokemon[5];
@@ -17,23 +17,20 @@ public class Board {
     // numbers = rightest column position
 
     public Board() {
-        this.homeTeam = homeTeam;
-        this.computerTeam = computerTeam;
-
         createBoard();
     }
 
     // Blank board template
     public void createBoard() {
         board = new Tile[5][7];
-        System.out.println("-----------------------------------");
+        //System.out.println("-----------------------------------");
         for (int i = 0; i < 5; i++) {
-            System.out.print(i);
+            //System.out.print(i);
             for (int j = 0; j < 7; j++) {
                 board[i][j] = new Tile(i, j);
             }
-            System.out.println();
-            System.out.println("------------------------------");
+            //System.out.println();
+            //System.out.println("------------------------------");
         }
     }
 
@@ -74,7 +71,7 @@ public class Board {
 
     // Checks if spot is empty on gameboard
     public boolean emptyTile(int x, int y){
-        if(board[x][y].removePokemon().getName() == "non"){
+        if(board[x][y].getCurrentPokemonName() == "non"){
             return true;
         }
 
@@ -96,6 +93,17 @@ public class Board {
     public Tile getTile(int x, int y){
 
         return board[x][y];
+    }
+
+    public void tileIDToPos(int tileID){
+        int x;
+        int y;
+        switch(tileID){
+            case 0 -> {
+                x = 0;
+                y = 0;
+            }
+        }
     }
 
 }

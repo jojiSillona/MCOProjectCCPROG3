@@ -1,11 +1,9 @@
 package com.pokechess.gui;
 
 import com.pokechess.board.Board;
-import com.pokechess.board.Tile;
 import com.pokechess.gui.graphics.Colors;
 import com.pokechess.managers.BoardManager;
 import com.pokechess.model.loaders.ImageLoader;
-import com.pokechess.player.Pokemon;
 
 import javax.swing.*;
 import java.util.*;
@@ -17,8 +15,8 @@ import java.util.List;
 public class BoardScreen extends JPanel implements MouseListener {
     private BoardManager bManager;
 
-    private final BoardPanel boardPanel;
-    public Tile[][] board;
+    public final BoardPanel boardPanel;
+    public Board board;
 
 
     private final static Dimension BOARD_DIMENSION = new Dimension(800,600);
@@ -27,10 +25,12 @@ public class BoardScreen extends JPanel implements MouseListener {
     // private static Dimension OUTER_PANEL_DIMENSION = new Dimension(1500,1000);
     // private final BoardPanel boardPanel;
 
-    public BoardScreen(BoardManager bManager, Frame frame){
+    public BoardScreen(BoardManager bManager, Frame frame, Board board){
         this.bManager = bManager;
+        this.board = board;
         this.setVisible(true);
         this.setSize(frame.getSize());
+
 
         this.boardPanel = new BoardPanel();
         this.boardPanel.setVisible(true);
@@ -69,8 +69,8 @@ public class BoardScreen extends JPanel implements MouseListener {
 
     }
 
-    private class BoardPanel extends JPanel{
-        final List<TilePanel> boardtiles;
+    public class BoardPanel extends JPanel{
+        public final List<TilePanel> boardtiles;
         BoardPanel(){
             super(new GridLayout(5,7));
             this.boardtiles = new ArrayList<>();
@@ -79,15 +79,15 @@ public class BoardScreen extends JPanel implements MouseListener {
                 this.boardtiles.add(tilePanel);
 
                 add(tilePanel);
-
             }
 
             setPreferredSize(BOARD_DIMENSION);
             validate();
         }
+
     }
 
-    private class TilePanel extends JPanel {
+    public class TilePanel extends JPanel {
         private final int tileID;
 
         TilePanel(final BoardPanel boardPanel, final int tileID){
@@ -95,8 +95,28 @@ public class BoardScreen extends JPanel implements MouseListener {
             this.tileID = tileID;
             setPreferredSize(TILE_DIMENSION);
             setVisible(true);
+
             assignTileColor();
             validate();
+        }
+
+        public void assignPokemonToTile(Board board){
+            if(this.tileID % 7 == 0){
+                String pokemonName = board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName();
+                String path = "/com/pokechess/gui/images/pokemonselect/rightface/full-";
+                String pathToAlly = path + pokemonName + ".png";
+                System.out.println(pathToAlly);
+                ImageIcon icon = ImageLoader.loadImageIcon(pathToAlly, 70);
+                add(new JLabel(icon));
+            }
+            if(this.tileID % 7 == 6){
+                String enemyName = board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName();
+                String path = "/com/pokechess/gui/images/pokemonselect/leftfaces/full-enemy-";
+                String pathToEnemy = path + enemyName + ".png";
+                System.out.println(pathToEnemy);
+                ImageIcon icon = ImageLoader.loadImageIcon(pathToEnemy, 70);
+                add(new JLabel(icon));
+            }
         }
 
         private void assignTileColor(){
@@ -108,17 +128,5 @@ public class BoardScreen extends JPanel implements MouseListener {
                 setBackground(Colors.TRANSLUCENT_WHITE);
         }
     }
-//    private class PositionPanel extends JPanel{
-//        private final int tilePosition;
-//
-//        PositionPanel(final TilePanel tilePanel, final int tilePosition){
-//            super(new GridBagLayout());
-//            this.tilePosition = tilePosition;
-//            setPreferredSize(TILE_DIMENSION);
-//            assignTileColor();
-//            validate();
-//        }
-//    }
-
 }
 
