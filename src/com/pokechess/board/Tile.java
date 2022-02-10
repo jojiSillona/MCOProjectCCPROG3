@@ -68,4 +68,8 @@ public class Tile {
     public String getCurrentPokemonName(){
         return currPokemonPos.getName();
     }
+
+    public Position getAlphaNum(){
+        return alphaNum;
+    }
 }

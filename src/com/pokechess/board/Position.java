@@ -7,11 +7,12 @@ public class Position {
         this.y = y;
         this.x = x;
     }
-
+    //get 7
     public void setAlphabet(int alb){
         this.x = alb;
     }
 
+    //get x
     public void setNumber(int num){
         this.y = num;
     }

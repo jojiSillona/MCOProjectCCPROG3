@@ -85,6 +85,8 @@ public class Pokemon {
     public void setCarriedPoints(int addPoint){
         this.carriedPoints = addPoint;
     }
+
+
 //    public boolean pokemonCanHeal(){
 //        return heal;
 //

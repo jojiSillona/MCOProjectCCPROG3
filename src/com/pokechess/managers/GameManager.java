@@ -34,9 +34,7 @@ public class GameManager {
 
     public void showBoardScreen(){
         mainGame.setupGame();
-        for(int i = 0; i < 35; i++){
-            mainGame.gui.boardPanel.boardtiles.get(i).assignPokemonToTile(mainGame.board);
-        }
+        mainGame.initGui();
         this.frame.setScreen(mainGame.getGui());
 
     }

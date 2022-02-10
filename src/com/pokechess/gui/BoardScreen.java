@@ -1,9 +1,12 @@
 package com.pokechess.gui;
 
 import com.pokechess.board.Board;
+import com.pokechess.board.Position;
+import com.pokechess.board.Tile;
 import com.pokechess.gui.graphics.Colors;
 import com.pokechess.managers.BoardManager;
 import com.pokechess.model.loaders.ImageLoader;
+import com.pokechess.player.Pokemon;
 
 import javax.swing.*;
 import java.util.*;
@@ -12,12 +15,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
-public class BoardScreen extends JPanel implements MouseListener {
-    private BoardManager bManager;
+import static javax.swing.SwingUtilities.isLeftMouseButton;
+import static javax.swing.SwingUtilities.isRightMouseButton;
 
+public class BoardScreen extends JPanel{
+    private BoardManager bManager;
     public final BoardPanel boardPanel;
     public Board board;
 
+
+    private Tile sourceTile;
+    private Tile destinationTile;
+    private Pokemon humanActionPiece;
 
     private final static Dimension BOARD_DIMENSION = new Dimension(800,600);
     private final static Dimension TILE_DIMENSION = new Dimension(20,20);
@@ -32,7 +41,9 @@ public class BoardScreen extends JPanel implements MouseListener {
         this.setSize(frame.getSize());
 
 
+
         this.boardPanel = new BoardPanel();
+
         this.boardPanel.setVisible(true);
         this.add(this.boardPanel, BorderLayout.CENTER);
 
@@ -44,38 +55,14 @@ public class BoardScreen extends JPanel implements MouseListener {
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
     public class BoardPanel extends JPanel{
-        public final List<TilePanel> boardtiles;
+        final List<TilePanel> boardtiles;
+
         BoardPanel(){
             super(new GridLayout(5,7));
             this.boardtiles = new ArrayList<>();
             for(int i = 0; i < 35; i++){
-                final TilePanel tilePanel = new TilePanel(this, i);
+                TilePanel tilePanel = new TilePanel(this, i);
                 this.boardtiles.add(tilePanel);
 
                 add(tilePanel);
@@ -83,6 +70,16 @@ public class BoardScreen extends JPanel implements MouseListener {
 
             setPreferredSize(BOARD_DIMENSION);
             validate();
+        }
+
+        public void drawBoard(Board board){
+            removeAll();
+            for(final TilePanel tilePanel : boardtiles){
+                tilePanel.drawTile(board);
+                add(tilePanel);
+            }
+            validate();
+            repaint();
         }
 
     }
@@ -95,9 +92,82 @@ public class BoardScreen extends JPanel implements MouseListener {
             this.tileID = tileID;
             setPreferredSize(TILE_DIMENSION);
             setVisible(true);
-
             assignTileColor();
+            assignPokemonToTile(board);
+
+            addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    //Right mouse clicks will allow the player to cancel their Pokemon Selection
+                    if(isRightMouseButton(e)){
+                        sourceTile = null;
+                        destinationTile = null;
+                        humanActionPiece = null;
+                    } else if(isLeftMouseButton(e)){
+                        if(sourceTile == null){
+                            sourceTile = board.getTile(tileID / 7, tileID % 7);
+                            humanActionPiece = sourceTile.getCurrPosition();
+                            if(humanActionPiece == null){
+                                sourceTile = null;
+                            }
+                        } else {
+                            destinationTile = board.getTile(tileID / 7, tileID % 7);
+                            bManager.castPossibleMove(sourceTile.getCurrPosition());
+                            int i = 0;
+                            while(i < bManager.possibleMoves.size()){
+                                if(bManager.possibleMoves.get(i).getAlphabet() == destinationTile.getAlphabet() &&
+                                bManager.possibleMoves.get(i).getNumber() == destinationTile.getNumber()){
+                                    Position P = new Position(destinationTile.getAlphabet(), destinationTile.getNumber());
+                                    bManager.board.movePokemon(sourceTile, destinationTile);
+                                    break;
+                                } else {
+                                    i++;
+                                }
+                            }
+                            sourceTile = null;
+                            destinationTile = null;
+                            humanActionPiece = null;
+                        }
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                removeAll();
+                                drawTile(board);
+                                repaint();
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                }
+            });
+
             validate();
+        }
+
+        public void drawTile(Board board){
+            assignTileColor();
+            assignPokemonToTile(board);
+            validate();
+            repaint();
         }
 
         public void assignPokemonToTile(Board board){
