@@ -17,7 +17,7 @@ public class Tile {
 
     public Tile(int x, int y ){
         createPosition(x, y);
-        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0);
+        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0, false);
     }
 
     private void createPosition(int x, int y){
@@ -50,11 +50,8 @@ public class Tile {
         return startTile;
     }
 
-    public Pokemon removePokemon(){
-        Pokemon temp = currPokemonPos;
-        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0);
-        temp.setPosition(alphaNum);
-        return temp;
+    public void removePokemon(){
+        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0, false);
     }
 
     public int getNumber(){

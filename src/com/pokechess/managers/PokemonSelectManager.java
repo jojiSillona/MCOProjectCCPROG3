@@ -74,7 +74,7 @@ public class PokemonSelectManager {
                 rR = 3;
             }
         }
-        target.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR, user);
+        target.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR, user, true);
     }
 
     public String identifyBattleType(String input){

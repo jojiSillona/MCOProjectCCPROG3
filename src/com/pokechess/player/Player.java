@@ -17,7 +17,7 @@ public class Player {
 
     public Player(){
         for(int i = 0; i < 5; i++)
-            this.pokemonTeam[i] = new Pokemon("non", 0, 0  , 0, 0, 0, 0);
+            this.pokemonTeam[i] = new Pokemon("non", 0, 0  , 0, 0, 0, 0, false);
     }
 
     public String getType(int index){
@@ -49,8 +49,8 @@ public class Player {
     }
 
     public void addPokemon(int index, String name, String bt, int hp, float atk, float def, int spd,
-                           float hpReg, int revRate, int user){
-        pokemonTeam[index] = new Pokemon(name.toUpperCase(Locale.ROOT), hp, atk, def, spd, hpReg, revRate);
+                           float hpReg, int revRate, int user, boolean isEnemy){
+        pokemonTeam[index] = new Pokemon(name.toUpperCase(Locale.ROOT), hp, atk, def, spd, hpReg, revRate, isEnemy);
         pokemonTeam[index].setBattleType(bt);
     }
 

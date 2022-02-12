@@ -75,53 +75,6 @@ public class BoardManager {
         }
     }
 
-
-    // Translates a alpha-number move to a move that would
-    // work with a 2D array
-    public int[] translatePosition(String move){
-
-        if(move.charAt(0) < 'a' || move.charAt(0) > 'g'){
-            throw new IllegalArgumentException();
-        }
-
-        int[] alpha = new int[2];
-        switch(move.charAt(0)){
-            case 'a':
-                alpha[1] = 0;
-                break;
-            case 'b':
-                alpha[1] = 1;
-                break;
-            case 'c':
-                alpha[1] = 2;
-                break;
-            case 'd':
-                alpha[1] = 3;
-                break;
-            case 'e':
-                alpha[1] = 4;
-                break;
-            case 'f':
-                alpha[1] = 5;
-                break;
-            case 'g':
-                alpha[1] = 6;
-                break;
-        }
-
-        try{
-            alpha[0] = Integer.parseInt(move.substring(1));
-            if(alpha[0] < 1 || alpha[0] > 6)
-                throw new IllegalArgumentException();
-
-            alpha[0] = alpha[0] - 1;
-        }catch(NumberFormatException d){
-            throw new IllegalArgumentException();
-        }
-
-        return alpha;
-    }
-
     public void castPossibleMove(Pokemon targetPokemon){
         int movement = targetPokemon.getSpeed();
         Position playerPos = targetPokemon.getPosition();
