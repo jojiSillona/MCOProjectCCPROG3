@@ -48,8 +48,9 @@ public final class Board {
         }
     }
 
-    public void movePokemon(Tile current, Tile destination){
-        current.currPokemonPos.setPosition(destination.getAlphaNum());
+    public void movePokemon(Tile current, Tile destinationTile){
+        destinationTile.setCurrPosition(current.getCurrPosition());
+        current.removePokemon();
     }
 
     // Prints out game screen

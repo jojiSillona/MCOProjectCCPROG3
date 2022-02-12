@@ -20,9 +20,8 @@ import static javax.swing.SwingUtilities.isRightMouseButton;
 
 public class BoardScreen extends JPanel{
     private BoardManager bManager;
-    public final BoardPanel boardPanel;
+    private final BoardPanel boardPanel;
     public Board board;
-
 
     private Tile sourceTile;
     private Tile destinationTile;
@@ -31,58 +30,49 @@ public class BoardScreen extends JPanel{
     private final static Dimension BOARD_DIMENSION = new Dimension(800,600);
     private final static Dimension TILE_DIMENSION = new Dimension(20,20);
 
-    // private static Dimension OUTER_PANEL_DIMENSION = new Dimension(1500,1000);
-    // private final BoardPanel boardPanel;
-
     public BoardScreen(BoardManager bManager, Frame frame, Board board){
         this.bManager = bManager;
         this.board = board;
         this.setVisible(true);
         this.setSize(frame.getSize());
 
-
-
         this.boardPanel = new BoardPanel();
 
         this.boardPanel.setVisible(true);
         this.add(this.boardPanel, BorderLayout.CENTER);
-
-        this.initComponents();
-
-    }
-
-    public void initComponents(){
-
     }
 
     public class BoardPanel extends JPanel{
-        final List<TilePanel> boardtiles;
+        final List<TilePanel> boardTiles;
 
         BoardPanel(){
             super(new GridLayout(5,7));
-            this.boardtiles = new ArrayList<>();
+            this.boardTiles = new ArrayList<>();
             for(int i = 0; i < 35; i++){
                 TilePanel tilePanel = new TilePanel(this, i);
-                this.boardtiles.add(tilePanel);
-
+                this.boardTiles.add(tilePanel);
                 add(tilePanel);
             }
-
             setPreferredSize(BOARD_DIMENSION);
             validate();
+
+            setBackground(Color.decode("#8B4726"));
+            repaint();
         }
 
-        public void drawBoard(Board board){
+        void drawBoard(final Board board){
             removeAll();
-            for(final TilePanel tilePanel : boardtiles){
-                tilePanel.drawTile(board);
-                add(tilePanel);
+            for(final TilePanel boardTile : boardTiles){
+                boardTile.drawTile(board);
+                add(boardTile);
             }
             validate();
             repaint();
         }
 
+
     }
+
 
     public class TilePanel extends JPanel {
         private final int tileID;
@@ -91,17 +81,15 @@ public class BoardScreen extends JPanel{
             super(new GridBagLayout());
             this.tileID = tileID;
             setPreferredSize(TILE_DIMENSION);
-            setVisible(true);
             assignTileColor();
             assignPokemonToTile(board);
-
+            highlightTileBorder(board);
             addMouseListener(new MouseListener() {
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mouseClicked(final MouseEvent e) {
                     //Right mouse clicks will allow the player to cancel their Pokemon Selection
                     if(isRightMouseButton(e)){
                         sourceTile = null;
-                        destinationTile = null;
                         humanActionPiece = null;
                     } else if(isLeftMouseButton(e)){
                         if(sourceTile == null){
@@ -114,26 +102,29 @@ public class BoardScreen extends JPanel{
                             destinationTile = board.getTile(tileID / 7, tileID % 7);
                             bManager.castPossibleMove(sourceTile.getCurrPosition());
                             int i = 0;
+                            boolean move = false;
                             while(i < bManager.possibleMoves.size()){
                                 if(bManager.possibleMoves.get(i).getAlphabet() == destinationTile.getAlphabet() &&
                                 bManager.possibleMoves.get(i).getNumber() == destinationTile.getNumber()){
-                                    Position P = new Position(destinationTile.getAlphabet(), destinationTile.getNumber());
                                     bManager.board.movePokemon(sourceTile, destinationTile);
+                                    move = true;
                                     break;
                                 } else {
                                     i++;
                                 }
                             }
-                            sourceTile = null;
+                            if(!move)
+                                dialogIllegal();
                             destinationTile = null;
+                            sourceTile = null;
                             humanActionPiece = null;
                         }
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
-                                removeAll();
-                                drawTile(board);
-                                repaint();
+                                boardPanel.drawBoard(board);
+//                                removeAll();
+//                                drawTile(board);
                             }
                         });
                     }
@@ -160,32 +151,50 @@ public class BoardScreen extends JPanel{
                 }
             });
 
-            validate();
+            revalidate();
+            repaint();
+
         }
 
-        public void drawTile(Board board){
+        void drawTile(Board board){
             assignTileColor();
             assignPokemonToTile(board);
-            validate();
+            highlightTileBorder(board);
+            revalidate();
             repaint();
         }
 
+        void dialogIllegal(){
+            JOptionPane.showMessageDialog(this, "Illegal Move!");
+        }
+
         public void assignPokemonToTile(Board board){
-            if(this.tileID % 7 == 0){
-                String pokemonName = board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName();
-                String path = "/com/pokechess/gui/images/pokemonselect/rightface/full-";
-                String pathToAlly = path + pokemonName + ".png";
-                System.out.println(pathToAlly);
-                ImageIcon icon = ImageLoader.loadImageIcon(pathToAlly, 70);
-                add(new JLabel(icon));
+            removeAll();
+            if(board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName() != "non"){
+                if(!board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getIsEnemy()){
+                    String pokemonName = board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName();
+                    String path = "/com/pokechess/gui/images/pokemonselect/rightface/full-";
+                    String pathToAlly = path + pokemonName + ".png";
+                    System.out.println(pathToAlly);
+                    ImageIcon icon = ImageLoader.loadImageIcon(pathToAlly, 70);
+                    add(new JLabel(icon));
+                } else {
+                    String enemyName = board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName();
+                    String path = "/com/pokechess/gui/images/pokemonselect/leftfaces/full-enemy-";
+                    String pathToEnemy = path + enemyName + ".png";
+                    System.out.println(pathToEnemy);
+                    ImageIcon icon = ImageLoader.loadImageIcon(pathToEnemy, 70);
+                    add(new JLabel(icon));
+                }
             }
-            if(this.tileID % 7 == 6){
-                String enemyName = board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName();
-                String path = "/com/pokechess/gui/images/pokemonselect/leftfaces/full-enemy-";
-                String pathToEnemy = path + enemyName + ".png";
-                System.out.println(pathToEnemy);
-                ImageIcon icon = ImageLoader.loadImageIcon(pathToEnemy, 70);
-                add(new JLabel(icon));
+        }
+
+        private void highlightTileBorder(final Board board){
+            if(humanActionPiece != null && !humanActionPiece.getIsEnemy() && humanActionPiece.getPosition().getAlphabet() == tileID % 7
+            && humanActionPiece.getPosition().getNumber() == tileID / 7){
+                setBorder(BorderFactory.createLineBorder(Color.CYAN));
+            } else {
+                setBorder(BorderFactory.createLineBorder(Color.GRAY));
             }
         }
 
@@ -197,6 +206,12 @@ public class BoardScreen extends JPanel{
             else
                 setBackground(Colors.TRANSLUCENT_WHITE);
         }
+    }
+
+    @Override
+    protected void paintChildren(Graphics g) {
+        super.paintChildren(g);
+        this.repaint();
     }
 }
 

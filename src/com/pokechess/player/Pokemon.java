@@ -16,6 +16,7 @@ public class Pokemon {
     private int speed;
     private float hpRegen;
     private int revivalRate;
+    private boolean isEnemy;
 
     private int carriedPoints;
 
@@ -23,7 +24,7 @@ public class Pokemon {
     private Position position;
 
     public Pokemon(String name, int health, float attack, float defense, int speed, float hpRegen,
-                   int revivalRate) {
+                   int revivalRate, boolean isEnemy) {
         this.name = name;
         this.health = health;
         this.attack = attack;
@@ -31,6 +32,11 @@ public class Pokemon {
         this.speed = speed;
         this.hpRegen = hpRegen;
         this.revivalRate = revivalRate;
+        this.isEnemy = isEnemy;
+    }
+
+    public boolean getIsEnemy(){
+        return isEnemy;
     }
 
     public void setBattleType(String bt){
