@@ -1,36 +1,36 @@
 package com.pokechess.board;
 
+import com.pokechess.managers.BoardManager;
+import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
-public final class Board {
+import java.util.concurrent.ThreadLocalRandom;
 
+public class Board {
+    private BoardManager manager;
     private Pokemon[] homeTeam = new Pokemon[5];
-    private Pokemon[] computerTeam = new Pokemon[5];
+    public Pokemon[] computerTeam = new Pokemon[5];
 
     public Tile[][] board;
-    char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
 
-    // @param x = number
-    // @param y = alphabet
+    // @param x / ROW = number
+    // @param y / COLUMN= alphabet
 
     // alphabet = lowest row position
     // numbers = rightest column position
 
-    public Board() {
+    public Board(BoardManager manager) {
+        this.manager = manager;
         createBoard();
     }
 
     // Blank board template
     public void createBoard() {
         board = new Tile[5][7];
-        //System.out.println("-----------------------------------");
         for (int i = 0; i < 5; i++) {
-            //System.out.print(i);
             for (int j = 0; j < 7; j++) {
                 board[i][j] = new Tile(i, j);
             }
-            //System.out.println();
-            //System.out.println("------------------------------");
         }
     }
 
@@ -53,42 +53,36 @@ public final class Board {
         current.removePokemon();
     }
 
-    // Prints out game screen
-    public void printBoard(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
-        for(int x = 0; x < 5; x++){
-            System.out.println("----------------------------------------------------");
-            for (int y = 0; y < 7; y++){
-                Pokemon pokeOnTile = board[x][y].getCurrPosition();
-                if(pokeOnTile.getName() != "non"){
-                    System.out.print("|" + pokeOnTile.getName() + "\t");
-                }
-                else {
-                    System.out.print("| " + board[x][y].getAlphabet() + board[x][y].getNumber());
-//                    if(board[x][y].moveTrue())
-//                        System.out.print("!");
-//                    System.out.print("\t");
-                }
-            }
-            System.out.print("\n");
-        }
-        System.out.println("----------------------------------------------------");
-    }
-
-    // Checks if spot is empty on gameboard
     public boolean emptyTile(int x, int y){
-        if(board[x][y].getCurrentPokemonName() == "non"){
+        if(this.board[y][x].getCurrentPokemonName().equals("non")){
             return true;
         }
 
         return false;
     }
 
+
+    public void moveComputer(Player computer){
+        int randomPokemon = ThreadLocalRandom.current().nextInt(0, 5);
+        int randomPosition = ThreadLocalRandom.current().nextInt(0, manager.possibleMoves.size() + 1);
+
+        Pokemon selectedPokemon = computer.getPokemon(randomPokemon);
+        Position enemyPokemonPosition = selectedPokemon.getPosition();
+
+        manager.castPossibleMove(selectedPokemon);
+        Position destinationTile = manager.possibleMoves.get(randomPosition);
+
+        this.board[destinationTile.getRow()][destinationTile.getColumn()].
+                setCurrPosition(this.board[enemyPokemonPosition.getRow()][enemyPokemonPosition.getColumn()].getCurrPosition());
+        this.board[enemyPokemonPosition.getRow()][enemyPokemonPosition.getColumn()].removePokemon();
+    }
+
     // Checks if input is out of range
     public boolean outOfRange(int x, int y){
 
-        if(x < 0 || x > 4)
+        if(x < 0 || x > 6)
             return true;
-        if(y < 0 || y > 6)
+        if(y < 0 || y > 4)
             return true;
 
         return false;

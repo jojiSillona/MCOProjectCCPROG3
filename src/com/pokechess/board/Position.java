@@ -2,6 +2,8 @@ package com.pokechess.board;
 
 public class Position {
     protected int x, y;
+    //X IS COLUMN
+    //Y IS ROW
 
     public Position(int y, int x){
         this.y = y;
@@ -17,10 +19,12 @@ public class Position {
         this.y = num;
     }
 
-    public int getNumber(){
+    //ROW
+    public int getRow(){
         return y;
     }
-    public int getAlphabet(){
+    //COLUMN
+    public int getColumn(){
         return x;
     }
 
