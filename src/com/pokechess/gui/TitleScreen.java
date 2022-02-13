@@ -14,8 +14,10 @@ public class TitleScreen extends JPanel implements MouseListener {
     private TitleScreenManager programManager;
     private JLabel logo;
     private Button startButton;
+    private Button initBattleButton;
     private JLabel background;
     private JLabel startText;
+    private JLabel initText;
 
     public TitleScreen(TitleScreenManager programManager, Frame frame){
         this.programManager = programManager;
@@ -26,6 +28,8 @@ public class TitleScreen extends JPanel implements MouseListener {
         this.initComponents();
         this.add(this.startText);
         this.add(this.startButton);
+        this.add(this.initText);
+        this.add(this.initBattleButton);
         this.add(this.logo);
         this.add(this.background);
     }
@@ -44,6 +48,15 @@ public class TitleScreen extends JPanel implements MouseListener {
         Guide.centerHorizontally(this, this.startText);
         this.startText.setLocation(this.startText.getX(), 433);
 
+        this.initText = new JLabel("Initialize Battle", SwingConstants.CENTER);
+        Font fi = new Font("Arial", Font.PLAIN, 12);
+        this.initText.setFont(fi);
+        this.initText.setForeground(Color.WHITE);
+        this.initText.setVisible(true);
+        this.initText.setSize(100, 30);
+        Guide.centerHorizontally(this, this.initText);
+        this.initText.setLocation(this.initText.getX(), 508);
+
         ImageIcon imageIcon1 = ImageLoader.loadImageIcon(path1, 500);
         this.logo = new JLabel(imageIcon1);
         this.logo.setVisible(true);
@@ -61,6 +74,11 @@ public class TitleScreen extends JPanel implements MouseListener {
         this.background.setVisible(true);
         this.background.setSize(imageIcon3.getIconWidth(), imageIcon3.getIconHeight());
         Guide.centerHorizontally(this, this.background);
+
+        ImageIcon imageIcon4 = ImageLoader.loadImageIcon(path2, 150);
+        this.initBattleButton= new Button(imageIcon4, this);
+        Guide.centerHorizontally(this, this.initBattleButton);
+        this.initBattleButton.setLocation(this.initBattleButton.getX(), 500);
 
     }
 
@@ -82,17 +100,30 @@ public class TitleScreen extends JPanel implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        this.startButton.changeImageIcon(ImageLoader.loadImageIcon(ImageLoader.BUTTON_HOVER, 300));
+        Object source = e.getSource();
+        if(source == this.startButton){
+            this.startButton.changeImageIcon(ImageLoader.loadImageIcon(ImageLoader.BUTTON_HOVER, 300));
+        } else if(source == this.initBattleButton){
+            this.initBattleButton.changeImageIcon(ImageLoader.loadImageIcon(ImageLoader.BUTTON_HOVER, 150));
+        }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        this.startButton.changeImageIcon(ImageLoader.loadImageIcon(ImageLoader.BUTTON_IDLE, 300));
+        Object source = e.getSource();
+        if(source == this.startButton){
+            this.startButton.changeImageIcon(ImageLoader.loadImageIcon(ImageLoader.BUTTON_IDLE, 300));
+        } else if(source == this.initBattleButton){
+            this.initBattleButton.changeImageIcon(ImageLoader.loadImageIcon(ImageLoader.BUTTON_IDLE, 150));
+        }
     }
 
     private void processMouseClicks(Object source){
         if(source == this.startButton){
             this.programManager.openCharacterSelect();
+        } else if(source == this.initBattleButton){
+            this.programManager.openBattleScreen();
+
         }
     }
 

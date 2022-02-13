@@ -17,6 +17,10 @@ public class TitleScreenManager {
         this.gameManager.showCharSelect();
     }
 
+    public void openBattleScreen(){
+        this.gameManager.showBattleScreen();
+    }
+
     public TitleScreen getGui() {
         return gui;
     }

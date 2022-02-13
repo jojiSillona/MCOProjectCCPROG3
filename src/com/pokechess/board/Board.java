@@ -53,8 +53,8 @@ public class Board {
         current.removePokemon();
     }
 
-    public boolean emptyTile(int x, int y){
-        if(this.board[y][x].getCurrentPokemonName().equals("non")){
+    public boolean emptyTile(int x, int y, Board board){
+        if(board.board[y][x].getCurrentPokemonName().equals("non")){
             return true;
         }
 
@@ -76,6 +76,8 @@ public class Board {
                 setCurrPosition(this.board[enemyPokemonPosition.getRow()][enemyPokemonPosition.getColumn()].getCurrPosition());
         this.board[enemyPokemonPosition.getRow()][enemyPokemonPosition.getColumn()].removePokemon();
     }
+
+
 
     // Checks if input is out of range
     public boolean outOfRange(int x, int y){

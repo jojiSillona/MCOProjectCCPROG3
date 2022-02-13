@@ -56,10 +56,16 @@ public class Player {
         pokemonTeam[index].setBattleType(bt);
     }
 
+    public void addPokemon(String name, String bt, int hp, float atk, float def, int spd,
+                           float hpReg, int revRate, int user, boolean isEnemy){
+        pokemonTeam[0] = new Pokemon(name.toUpperCase(Locale.ROOT), hp, atk, def, spd, hpReg, revRate, isEnemy);
+        pokemonTeam[0].setBattleType(bt);
+    }
+
     public Pokemon[] getPokemonTeam(){
         return Arrays.copyOf(pokemonTeam, pokemonTeam.length);
     }
-    public Pokemon getPokemon(int index){
+    public Pokemon  getPokemon(int index){
         return pokemonTeam[index];
     }
 }
