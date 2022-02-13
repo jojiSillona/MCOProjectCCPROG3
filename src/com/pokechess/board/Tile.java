@@ -9,15 +9,15 @@ public class Tile {
     -ALPHABET CORRESPONDS TO X POSITION
     -NUMBER CORRESPONDS TO Y POSITION
      */
-    Position alphaNum;
-    Pokemon currPokemonPos ;
-    Pokemon startTile;
+    public Position alphaNum;
+    public Pokemon currPokemonPos ;
+    public Pokemon startTile;
 
     private boolean move;
 
     public Tile(int x, int y ){
         createPosition(x, y);
-        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0);
+        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0, false);
     }
 
     private void createPosition(int x, int y){
@@ -50,18 +50,23 @@ public class Tile {
         return startTile;
     }
 
-    public Pokemon removePokemon(){
-        Pokemon temp = currPokemonPos;
-        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0);
-        temp.setPosition(alphaNum);
-        return temp;
+    public void removePokemon(){
+        currPokemonPos = new Pokemon("non", 0, 0 ,0,0,0,0, false);
     }
 
     public int getNumber(){
-        return alphaNum.getNumber();
+        return alphaNum.getRow();
     }
 
     public int getAlphabet(){
-        return alphaNum.getAlphabet();
+        return alphaNum.getColumn();
+    }
+
+    public String getCurrentPokemonName(){
+        return currPokemonPos.getName();
+    }
+
+    public Position getAlphaNum(){
+        return alphaNum;
     }
 }

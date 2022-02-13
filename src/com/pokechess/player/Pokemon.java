@@ -8,7 +8,8 @@ public class Pokemon {
     private String battleType = "non";
     private boolean move = true;
 
-    private int health;
+    private int maxHealth;
+    private int currentHealth;
 
     private boolean pokemonHeal;
     private float attack;
@@ -16,21 +17,28 @@ public class Pokemon {
     private int speed;
     private float hpRegen;
     private int revivalRate;
+    private boolean isEnemy;
+    private boolean defendProtected = false;
 
     private int carriedPoints;
 
-    private int startTile;
     private Position position;
 
     public Pokemon(String name, int health, float attack, float defense, int speed, float hpRegen,
-                   int revivalRate) {
+                   int revivalRate, boolean isEnemy) {
         this.name = name;
-        this.health = health;
+        this.maxHealth = health;
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;
         this.hpRegen = hpRegen;
         this.revivalRate = revivalRate;
+        this.isEnemy = isEnemy;
+        this.currentHealth = maxHealth;
+    }
+
+    public boolean getIsEnemy(){
+        return isEnemy;
     }
 
     public void setBattleType(String bt){
@@ -45,13 +53,6 @@ public class Pokemon {
         return position;
     }
 
-    public void setStartingTile(int startTile){
-        this.startTile = startTile;
-    }
-    public int getStartingTile(int startTile){
-        return startTile;
-    }
-
     public float getHpRegen() {
 
         return hpRegen;
@@ -59,11 +60,22 @@ public class Pokemon {
 
     public int getMaxHp() {
 
-        return health;
+        return maxHealth;
+    }
+    public int getCurrentHealth(){
+        return currentHealth;
     }
 
     public boolean pokemonHeal(){
         return pokemonHeal;
+    }
+
+    public void setProtection(boolean toggle){
+        this.defendProtected = toggle;
+    }
+
+    public boolean isDefendProtected(){
+        return defendProtected;
     }
 
     public String getName(){
@@ -85,9 +97,18 @@ public class Pokemon {
     public void setCarriedPoints(int addPoint){
         this.carriedPoints = addPoint;
     }
-//    public boolean pokemonCanHeal(){
-//        return heal;
-//
-//    }
+
+    public float getAttack(){
+        return attack;
+    }
+
+    public float getDefense(){
+        return defense;
+    }
+
+    public void setCurrentHealth(int health){
+        this.currentHealth = health;
+    }
+
 
 }
