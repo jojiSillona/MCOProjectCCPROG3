@@ -55,11 +55,11 @@ public class Tile {
     }
 
     public int getNumber(){
-        return alphaNum.getNumber();
+        return alphaNum.getRow();
     }
 
     public int getAlphabet(){
-        return alphaNum.getAlphabet();
+        return alphaNum.getColumn();
     }
 
     public String getCurrentPokemonName(){

@@ -13,7 +13,7 @@ public class ComputerManager {
     public Player computer;
     public Player ally;
 
-    private ShowcasePokemon gui;
+    private final ShowcasePokemon gui;
 
     public ComputerManager(GameManager gmgr, BoardManager mgr, Frame frame){
         this.gameManager = gmgr;

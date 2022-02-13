@@ -7,13 +7,11 @@ import java.util.Scanner;
 public class Player {
     private String name;
     private int points;
-    private int moves;
+    private int boardCommands;
 
     private final Pokemon[] pokemonTeam = new Pokemon[5];
-    private int choice;
     private boolean loop = true;
 
-    Scanner scn = new Scanner(System.in);
 
     public Player(){
         for(int i = 0; i < 5; i++)
@@ -46,6 +44,10 @@ public class Player {
 
     public String getPlayerName(){
         return name;
+    }
+
+    public int getBoardCommands(){
+        return boardCommands;
     }
 
     public void addPokemon(int index, String name, String bt, int hp, float atk, float def, int spd,

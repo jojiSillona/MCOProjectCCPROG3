@@ -1,11 +1,11 @@
 package com.pokechess.gui;
 
 import com.pokechess.board.Board;
-import com.pokechess.board.Position;
 import com.pokechess.board.Tile;
 import com.pokechess.gui.graphics.Colors;
 import com.pokechess.managers.BoardManager;
 import com.pokechess.model.loaders.ImageLoader;
+import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
 import javax.swing.*;
@@ -19,13 +19,14 @@ import static javax.swing.SwingUtilities.isLeftMouseButton;
 import static javax.swing.SwingUtilities.isRightMouseButton;
 
 public class BoardScreen extends JPanel{
-    private BoardManager bManager;
+    private final BoardManager bManager;
     private final BoardPanel boardPanel;
     public Board board;
 
     private Tile sourceTile;
     private Tile destinationTile;
     private Pokemon humanActionPiece;
+    private int playerAction = 0;
 
     private final static Dimension BOARD_DIMENSION = new Dimension(800,600);
     private final static Dimension TILE_DIMENSION = new Dimension(20,20);
@@ -83,19 +84,19 @@ public class BoardScreen extends JPanel{
             setPreferredSize(TILE_DIMENSION);
             assignTileColor();
             assignPokemonToTile(board);
-            highlightTileBorder(board);
+            highlightTileBorder();
             addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(final MouseEvent e) {
                     //Right mouse clicks will allow the player to cancel their Pokemon Selection
-                    if(isRightMouseButton(e)){
+                    if (isRightMouseButton(e)) {
                         sourceTile = null;
                         humanActionPiece = null;
-                    } else if(isLeftMouseButton(e)){
-                        if(sourceTile == null){
+                    } else if (isLeftMouseButton(e)) {
+                        if (sourceTile == null) {
                             sourceTile = board.getTile(tileID / 7, tileID % 7);
                             humanActionPiece = sourceTile.getCurrPosition();
-                            if(humanActionPiece == null){
+                            if (humanActionPiece == null) {
                                 sourceTile = null;
                             }
                         } else {
@@ -103,30 +104,25 @@ public class BoardScreen extends JPanel{
                             bManager.castPossibleMove(sourceTile.getCurrPosition());
                             int i = 0;
                             boolean move = false;
-                            while(i < bManager.possibleMoves.size()){
-                                if(bManager.possibleMoves.get(i).getAlphabet() == destinationTile.getAlphabet() &&
-                                bManager.possibleMoves.get(i).getNumber() == destinationTile.getNumber()){
+                            while (i < bManager.possibleMoves.size()) {
+                                if (bManager.possibleMoves.get(i).getColumn() == destinationTile.getAlphabet() &&
+                                        bManager.possibleMoves.get(i).getRow() == destinationTile.getNumber()) {
                                     bManager.board.movePokemon(sourceTile, destinationTile);
                                     move = true;
+                                    bManager.possibleMoves.clear();
+                                    board.moveComputer(bManager.computer);
                                     break;
                                 } else {
                                     i++;
                                 }
                             }
-                            if(!move)
+                            if (!move)
                                 dialogIllegal();
                             destinationTile = null;
                             sourceTile = null;
                             humanActionPiece = null;
                         }
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                boardPanel.drawBoard(board);
-//                                removeAll();
-//                                drawTile(board);
-                            }
-                        });
+                        SwingUtilities.invokeLater(() -> boardPanel.drawBoard(board));
                     }
                 }
 
@@ -149,6 +145,7 @@ public class BoardScreen extends JPanel{
                 public void mouseExited(MouseEvent e) {
 
                 }
+
             });
 
             revalidate();
@@ -159,7 +156,7 @@ public class BoardScreen extends JPanel{
         void drawTile(Board board){
             assignTileColor();
             assignPokemonToTile(board);
-            highlightTileBorder(board);
+            highlightTileBorder();
             revalidate();
             repaint();
         }
@@ -170,7 +167,7 @@ public class BoardScreen extends JPanel{
 
         public void assignPokemonToTile(Board board){
             removeAll();
-            if(board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName() != "non"){
+            if(!Objects.equals(board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName(), "non")){
                 if(!board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getIsEnemy()){
                     String pokemonName = board.board[this.tileID / 7][this.tileID % 7].getCurrPosition().getName();
                     String path = "/com/pokechess/gui/images/pokemonselect/rightface/full-";
@@ -189,9 +186,9 @@ public class BoardScreen extends JPanel{
             }
         }
 
-        private void highlightTileBorder(final Board board){
-            if(humanActionPiece != null && !humanActionPiece.getIsEnemy() && humanActionPiece.getPosition().getAlphabet() == tileID % 7
-            && humanActionPiece.getPosition().getNumber() == tileID / 7){
+        private void highlightTileBorder(){
+            if(humanActionPiece != null && !humanActionPiece.getIsEnemy() && humanActionPiece.getPosition().getColumn() == tileID % 7
+            && humanActionPiece.getPosition().getRow() == tileID / 7){
                 setBorder(BorderFactory.createLineBorder(Color.CYAN));
             } else {
                 setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -212,6 +209,12 @@ public class BoardScreen extends JPanel{
     protected void paintChildren(Graphics g) {
         super.paintChildren(g);
         this.repaint();
+    }
+
+    boolean isPlayersTurn(Player player){
+        if(player.getBoardCommands() == 2)
+            return true;
+        return false;
     }
 }
 
