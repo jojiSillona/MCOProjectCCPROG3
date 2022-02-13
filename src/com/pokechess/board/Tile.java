@@ -9,9 +9,9 @@ public class Tile {
     -ALPHABET CORRESPONDS TO X POSITION
     -NUMBER CORRESPONDS TO Y POSITION
      */
-    Position alphaNum;
-    Pokemon currPokemonPos ;
-    Pokemon startTile;
+    public Position alphaNum;
+    public Pokemon currPokemonPos ;
+    public Pokemon startTile;
 
     private boolean move;
 

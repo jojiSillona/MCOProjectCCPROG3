@@ -3,6 +3,7 @@ package com.pokechess.gui;
 import com.pokechess.board.Board;
 import com.pokechess.board.Tile;
 import com.pokechess.gui.graphics.Colors;
+import com.pokechess.managers.BattleScreenManager;
 import com.pokechess.managers.BoardManager;
 import com.pokechess.model.loaders.ImageLoader;
 import com.pokechess.player.Player;
@@ -109,6 +110,9 @@ public class BoardScreen extends JPanel{
                                         bManager.possibleMoves.get(i).getRow() == destinationTile.getNumber()) {
                                     bManager.board.movePokemon(sourceTile, destinationTile);
                                     move = true;
+                                    if(destinationTile.getCurrPosition().getIsEnemy()){
+                                        bManager.initiateBattle();
+                                    }
                                     bManager.possibleMoves.clear();
                                     board.moveComputer(bManager.computer);
                                     break;
@@ -209,12 +213,6 @@ public class BoardScreen extends JPanel{
     protected void paintChildren(Graphics g) {
         super.paintChildren(g);
         this.repaint();
-    }
-
-    boolean isPlayersTurn(Player player){
-        if(player.getBoardCommands() == 2)
-            return true;
-        return false;
     }
 }
 

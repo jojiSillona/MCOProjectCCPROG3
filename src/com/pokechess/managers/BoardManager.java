@@ -2,6 +2,7 @@ package com.pokechess.managers;
 
 import com.pokechess.board.Board;
 import com.pokechess.board.Position;
+import com.pokechess.gui.BattleScreen;
 import com.pokechess.gui.BoardScreen;
 import com.pokechess.gui.Frame;
 import com.pokechess.player.Player;
@@ -17,6 +18,8 @@ public class BoardManager {
     public Frame frame;
 
     public BoardScreen gui;
+    public BattleScreen battleScreen;
+    public BattleScreenManager battleScreenManager;
     public ArrayList <Position> possibleMoves = new ArrayList<>();
 
     public BoardManager(Frame frame){
@@ -48,7 +51,8 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column + i, row) && this.board.emptyTile(column + i, row)) {
+            if(!board.outOfRange(column + i, row) && (this.board.emptyTile(column + i, row, this.board) ||
+                    !this.board.board[row][column + i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column + i);
                 P.setNumber(row);
                 possibleMoves.add(P);
@@ -59,7 +63,8 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column - i, row) && this.board.emptyTile(column - i, row)) {
+            if(!board.outOfRange(column - i, row) && (this.board.emptyTile(column - i, row, this.board) ||
+                    !this.board.board[row][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row);
                 possibleMoves.add(P);
@@ -70,7 +75,8 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column, row - i) && this.board.emptyTile(column, row - i)) {
+            if(!board.outOfRange(column, row - i) && (this.board.emptyTile(column, row - i, this.board) ||
+                    !this.board.board[row - i][column].getCurrPosition().getIsEnemy())) {
 
                 P.setAlphabet(column);
                 P.setNumber(row - movement);
@@ -82,7 +88,8 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column, row + i) && this.board.emptyTile(column, row + i)) {
+            if(!board.outOfRange(column, row + i) && (this.board.emptyTile(column, row + i, this.board) ||
+                    !this.board.board[row + i][column].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column);
                 P.setNumber(row + i);
 
@@ -94,7 +101,8 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column + i, row - i) && this.board.emptyTile(column + i, row - i)) {
+            if(!board.outOfRange(column + i, row - i) && (this.board.emptyTile(column + i, row - i, this.board) ||
+                    !this.board.board[row - i][column + i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column + i);
                 P.setNumber(row - i);
                 possibleMoves.add(P);
@@ -105,7 +113,8 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column + i, row + i) && this.board.emptyTile(column + i, row + i)) {
+            if(!board.outOfRange(column + i, row + i) && (this.board.emptyTile(column + i, row + i, this.board) ||
+                    !this.board.board[row + i][column + i].getCurrPosition().getIsEnemy())) {
 
                 P.setAlphabet(column + i);
                 P.setNumber(row + i);
@@ -117,7 +126,8 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column - i, row - i) && this.board.emptyTile(column - i, row - i)) {
+            if(!board.outOfRange(column - i, row - i) && (this.board.emptyTile(column - i, row - i, this.board) ||
+                    !this.board.board[row - i][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row - i);
                 possibleMoves.add(P);
@@ -128,7 +138,8 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column - i, row + i) && this.board.emptyTile(column - i, row + i) ) {
+            if(!board.outOfRange(column - i, row + i) && (this.board.emptyTile(column - i, row + i, this.board) ||
+                    !this.board.board[row + i][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row + i);
                 possibleMoves.add(P);
@@ -136,22 +147,8 @@ public class BoardManager {
         }
     }
 
-    public void initiateBattle(Board board, Pokemon player, Pokemon enemy){
-        //check if battle is feasible if not prompt player no one is fighting them
-        Random rnd = new Random();
-        int probability = rnd.nextInt(1);
-
-        System.out.println("We haven't implemented battle so we randomly choose who wins");
-        //Player wins if probability is 0
-        //Enemy wins if probability is 1
-        if(probability == 0) {
-            System.out.println(player.getName() + "wins!");
-            //remove enemy pokemon on tile
-        }
-        else {
-            System.out.println(enemy.getName() + "wins!");
-            //remove player pokemon on tile
-        }
+    public void initiateBattle(){
+        this.battleScreen = new BattleScreen(battleScreenManager, frame);
     }
 
     public void dunk(Player target, int index){
@@ -234,4 +231,6 @@ public class BoardManager {
     public BoardScreen getGui(){
         return gui;
     }
+
+
 }

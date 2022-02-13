@@ -26,8 +26,8 @@ public class ImageLoader {
     public static final String CARD_IDLE = "/com/pokechess/gui/images/cards/idle/card-back.png";
 
     //BUTTONS
-    public static final String BUTTON_IDLE = "/com/pokechess/gui/images/button/button-1.png";
-    public static final String BUTTON_HOVER = "/com/pokechess/gui/images/button/button-1-selected.png";
+    public static final String BUTTON_IDLE = "/com/pokechess/gui/images/buttons/button-1.png";
+    public static final String BUTTON_HOVER = "/com/pokechess/gui/images/buttons/button-1-selected.png";
 
     //BOARD-RELATED IMAGES
     public static final String BG_BOARD = "/com/pokechess/gui/images/bg/background-3.png";
@@ -35,6 +35,18 @@ public class ImageLoader {
     //SHOWCASE-RELATED IMAGES
     public static final String BG_BATTLE = "/com/pokechess/gui/images/bg/background-5.png";
 
+    //BATTLE-RELATED BUTTONS
+    public static final String BUTTON_ATTACK = "/com/pokechess/gui/images/buttons/attack-button.png";
+    public static final String BUTTON_DEFEND = "/com/pokechess/gui/images/buttons/defend-button.png";
+    public static final String BUTTON_HEAL = "/com/pokechess/gui/images/buttons/heal-button.png";
+    public static final String BUTTON_RUN = "/com/pokechess/gui/images/buttons/run-button.png";
+    public static final String SELECTEDBUTTON_ATTACK = "/com/pokechess/gui/images/buttons/attack-button-selected.png";
+    public static final String SELECTEDBUTTON_DEFEND = "/com/pokechess/gui/images/buttons/defend-button-selected.png";
+    public static final String SELECTEDBUTTON_HEAL = "/com/pokechess/gui/images/buttons/heal-button-selected.png";
+    public static final String SELECTEDBUTTON_RUN = "/com/pokechess/gui/images/buttons/run-button-selected.png";
+
+    //BATTLE-RELATED BACKGROUND
+    public static final String BG_BATTLESCREEN = "/com/pokechess/gui/images/bg/background-6.jpg";
 
     public static final Image loadImage(String path){
         URL resource = ImageLoader.class.getResource(path);
