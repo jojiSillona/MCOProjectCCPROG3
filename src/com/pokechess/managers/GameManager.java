@@ -1,35 +1,47 @@
 package com.pokechess.managers;
 
-
-import java.util.Scanner;
+import com.pokechess.gui.Frame;
 
 public class GameManager {
-    Scanner scn = new Scanner(System.in);
-    private String input;
-    private boolean loop = true;
+    private Frame frame;
+    BoardManager mainGame;
 
-    PokemonSelectManager pokemonSelectManager = new PokemonSelectManager();
-    BoardManager boardManager = new BoardManager();
 
-    public void startGame(){
-        pokemonSelectManager.askName();
-        pokemonSelectManager.showPokemonSelect();
+
+    public GameManager(){
+        this.frame = new Frame(1280, 720);
+        mainGame = new BoardManager(this.frame);
+    }
+
+    public void run(){
+        this.showTitleScreen();
     }
 
     public void showTitleScreen(){
-        System.out.println("POKECHESS UNITE");
-        do {
-            System.out.print("Type \"START\" to begin: ");
-            input = scn.nextLine();
-            if (input != "start") {
-                System.out.println("ERROR: Game does not recognize input. Try again.");
-            } else
-                loop = false;
-        } while (loop);
-        startGame();
+        TitleScreenManager titleManager =  new TitleScreenManager(this, this.frame);
+        this.frame.setScreen(titleManager.getGui());
+
     }
-    public void showBoard(){
-        System.out.println("POKECHESS GAMEBOARD");
-        boardManager.runBoard();
+    public void showCharSelect(){
+        CharSelScreenManager cssManager = new CharSelScreenManager(this, this.mainGame, this.frame);
+        this.frame.setScreen(cssManager.getGui());
     }
+
+    public void showCasePokemon(){
+        ComputerManager compManager = new ComputerManager(this, this.mainGame, this.frame);
+        this.frame.setScreen(compManager.getGui());
+    }
+
+    public void showBoardScreen(){
+        mainGame.setupGame();
+        mainGame.initGui();
+        this.frame.setScreen(mainGame.getGui());
+    }
+
+    public void showBattleScreen(){
+        BattleScreenManager battleScreenManager = new BattleScreenManager(this.frame, this, this.mainGame);
+        battleScreenManager.getRandomPokemons();
+        this.frame.setScreen(battleScreenManager.getGui());
+    }
+
 }
