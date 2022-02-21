@@ -34,7 +34,6 @@ public class BattleScreen extends JPanel implements MouseListener{
 
     public BattleScreen(BattleScreenManager bsManager, Frame frame) {
         this.bsManager = bsManager;
-        bsManager.getRandomPokemons();
         this.setVisible(true);
         this.setSize(frame.getSize());
         this.setLayout(null);

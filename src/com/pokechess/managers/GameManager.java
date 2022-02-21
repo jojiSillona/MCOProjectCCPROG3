@@ -5,6 +5,7 @@ import com.pokechess.gui.Frame;
 public class GameManager {
     private Frame frame;
     BoardManager mainGame;
+    BattleScreenManager battleScreenManager;
 
 
 
@@ -39,8 +40,7 @@ public class GameManager {
     }
 
     public void showBattleScreen(){
-        BattleScreenManager battleScreenManager = new BattleScreenManager(this.frame, this, this.mainGame);
-        battleScreenManager.getRandomPokemons();
+        battleScreenManager = new BattleScreenManager(this.frame, this, this.mainGame);
         this.frame.setScreen(battleScreenManager.getGui());
     }
 
