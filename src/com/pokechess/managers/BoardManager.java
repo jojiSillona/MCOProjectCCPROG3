@@ -9,7 +9,6 @@ import com.pokechess.player.Player;
 import com.pokechess.player.Pokemon;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class BoardManager {
     public Board board = new Board(this);
@@ -51,7 +50,7 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column + i, row) && (this.board.emptyTile(column + i, row, this.board) ||
+            if(!board.outOfRange(column + i, row) && (this.board.emptyTile(column + i, row) ||
                     this.board.board[row][column + i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column + i);
                 P.setNumber(row);
@@ -63,7 +62,7 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column - i, row) && (this.board.emptyTile(column - i, row, this.board) ||
+            if(!board.outOfRange(column - i, row) && (this.board.emptyTile(column - i, row) ||
                     this.board.board[row][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row);
@@ -75,7 +74,7 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column, row - i) && (this.board.emptyTile(column, row - i, this.board) ||
+            if(!board.outOfRange(column, row - i) && (this.board.emptyTile(column, row - i) ||
                     this.board.board[row - i][column].getCurrPosition().getIsEnemy())) {
 
                 P.setAlphabet(column);
@@ -88,7 +87,7 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column, row + i) && (this.board.emptyTile(column, row + i, this.board) ||
+            if(!board.outOfRange(column, row + i) && (this.board.emptyTile(column, row + i) ||
                     this.board.board[row + i][column].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column);
                 P.setNumber(row + i);
@@ -101,7 +100,7 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column + i, row - i) && (this.board.emptyTile(column + i, row - i, this.board) ||
+            if(!board.outOfRange(column + i, row - i) && (this.board.emptyTile(column + i, row - i) ||
                     this.board.board[row - i][column + i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column + i);
                 P.setNumber(row - i);
@@ -113,7 +112,7 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column + i, row + i) && (this.board.emptyTile(column + i, row + i, this.board) ||
+            if(!board.outOfRange(column + i, row + i) && (this.board.emptyTile(column + i, row + i) ||
                     this.board.board[row + i][column + i].getCurrPosition().getIsEnemy())) {
 
                 P.setAlphabet(column + i);
@@ -126,7 +125,7 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column - i, row - i) && (this.board.emptyTile(column - i, row - i, this.board) ||
+            if(!board.outOfRange(column - i, row - i) && (this.board.emptyTile(column - i, row - i) ||
                     this.board.board[row - i][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row - i);
@@ -138,7 +137,7 @@ public class BoardManager {
         for(i = 1; i <= movement; i++){
             Position P = new Position(column,row);
 
-            if(!board.outOfRange(column - i, row + i) && (this.board.emptyTile(column - i, row + i, this.board) ||
+            if(!board.outOfRange(column - i, row + i) && (this.board.emptyTile(column - i, row + i) ||
                     this.board.board[row + i][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row + i);
@@ -147,8 +146,10 @@ public class BoardManager {
         }
     }
 
-    public void initiateBattle(){
+    public void initiateBattle(Pokemon player, Pokemon enemy){
+        battleScreenManager = new BattleScreenManager(this.frame, this, player, enemy);
         this.battleScreen = new BattleScreen(battleScreenManager, frame);
+        this.frame.setScreen(this.battleScreen);
     }
 
     public void dunk(Player target, int index){
@@ -214,23 +215,7 @@ public class BoardManager {
         }
     }
 
-    private void pause(int milliseconds){
-
-    }
-    private boolean isValid(String input){
-        return true;
-    }
-
-
-    private void displayScreen(){
-        System.out.println("\n\n\n\n\n POKECHESS BOARD SCREEN \n\n\n\n\n");
-        // Print board
-
-    }
-
     public BoardScreen getGui(){
         return gui;
     }
-
-
 }

@@ -2,17 +2,18 @@ package com.pokechess.managers;
 
 import com.pokechess.gui.*;
 import com.pokechess.player.Player;
+import com.pokechess.player.Pokemon;
 
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BattleScreenManager {
-    private final GameManager gameManager;
     private BoardManager boardManager;
     private BattleScreen gui;
     public int turn = ThreadLocalRandom.current().nextInt(0, 10);
     // 1 % 2 == 1 : ENEMY
     // 2 % 2 == 0 : PLAYER
+    private boolean playerWon = false;
     private boolean someoneRan = false;
     private String commentator = "";
 
@@ -21,15 +22,25 @@ public class BattleScreenManager {
     DefendNames defendName;
 
     public Player player = new Player(), enemy = new Player();
-    public PokemonSelectManager selector;
 
-    public BattleScreenManager(Frame frame, GameManager manager, BoardManager boardManager) {
-        this.gameManager = manager;
+    public PokemonSelectManager selector;
+    private Frame frame;
+
+    public BattleScreenManager(Frame frame, BoardManager boardManager) {
         this.boardManager = boardManager;
         this.selector = new PokemonSelectManager(boardManager);
-        getRandomPokemons();
         this.gui = new BattleScreen(this, frame);
+        this.frame = frame;
     }
+
+    public BattleScreenManager(Frame frame, BoardManager bManager, Pokemon player, Pokemon enemy){
+        this.boardManager = bManager;
+        this.player.addPokemon(player);
+        this.enemy.addPokemon(enemy);
+        this.gui = new BattleScreen(this, frame);
+        this.frame = frame;
+    }
+
 
     public void getRandomPokemons() {
         int choice = ThreadLocalRandom.current().nextInt(0, names.length - 1);
@@ -44,7 +55,6 @@ public class BattleScreenManager {
         if(player.getPokemon(0).getCurrentHealth() != 0 && enemy.getPokemon(0).getCurrentHealth() != 0 && !someoneRan){
             if(turn % 2 == 0){          //PLAYER
                 player.getPokemon(0).setProtection(false);
-                System.out.println("");
                 switch(choice){
                     case 1 -> attack(this.player, this.enemy);
                     case 2 -> defend(this.player);
@@ -94,12 +104,16 @@ public class BattleScreenManager {
             }
             turn++;
         } else {
+            if(player.getPokemon(0).getCurrentHealth() != 0)
+                playerWon = true;
+            else
+                playerWon = false;
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.exit(0);
+            this.frame.setScreen(boardManager.getGui());
         }
     }
 
@@ -124,9 +138,9 @@ public class BattleScreenManager {
         System.out.println("NEW RECIPIENT HP: " + recipient.getPokemon(0).getCurrentHealth());
         attackName = AttackNames.valueOf(sender.getName(0));
         System.out.println(attackName.getDisplayBattleAction());
-        if(recipient.getPokemon(0).getCurrentHealth() == 0)
+        if(recipient.getPokemon(0).getCurrentHealth() == 0) {
             commentator = sender.getName(0) + " has defeated " + recipient.getName(0) + " using " + attackName.getDisplayBattleAction();
-        else
+        } else
             commentator = sender.getName(0) + " has attacked " + recipient.getName(0) + " using " + attackName.getDisplayBattleAction();
     }
 
@@ -154,6 +168,10 @@ public class BattleScreenManager {
             commentator = player.getName(0) + " ran away!";
         } else
             commentator = player.getName(0) + " tried running away, but failed!";
+    }
+
+    public boolean getPlayerWon(){
+        return this.playerWon;
     }
 
     public BattleScreen getGui() {

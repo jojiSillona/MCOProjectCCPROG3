@@ -40,7 +40,8 @@ public class GameManager {
     }
 
     public void showBattleScreen(){
-        battleScreenManager = new BattleScreenManager(this.frame, this, this.mainGame);
+        battleScreenManager = new BattleScreenManager(this.frame, this.mainGame);
+        battleScreenManager.getRandomPokemons();
         this.frame.setScreen(battleScreenManager.getGui());
     }
 

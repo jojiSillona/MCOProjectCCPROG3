@@ -1,6 +1,7 @@
 package com.pokechess.managers;
 
 import com.pokechess.player.Player;
+import com.pokechess.player.Pokemon;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -133,6 +134,10 @@ public class PokemonSelectManager {
             }
         }
         target.addPokemon(name, batTypeDisp, h, at, de, sp, hR, rR, user, true);
+    }
+
+    public void addPokemonToTeam(Pokemon pokemon, Player target){
+        target.addPokemon(pokemon);
     }
 
     public String identifyBattleType(String input){
