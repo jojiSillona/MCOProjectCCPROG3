@@ -51,7 +51,7 @@ public class Player {
     }
 
     public void addPokemon(int index, String name, String bt, int hp, float atk, float def, int spd,
-                           float hpReg, int revRate, int user, boolean isEnemy){
+                           float hpReg, int revRate, boolean isEnemy){
         pokemonTeam[index] = new Pokemon(name.toUpperCase(Locale.ROOT), hp, atk, def, spd, hpReg, revRate, isEnemy);
         pokemonTeam[index].setBattleType(bt);
     }

@@ -81,7 +81,7 @@ public class CharSelScreenManager {
                 rR = 3;
             }
         }
-        target.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR, user, false);
+        target.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR, false);
     }
 
     public String identifyBattleType(String input){

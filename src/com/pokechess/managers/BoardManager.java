@@ -52,7 +52,7 @@ public class BoardManager {
             Position P = new Position(column,row);
 
             if(!board.outOfRange(column + i, row) && (this.board.emptyTile(column + i, row, this.board) ||
-                    !this.board.board[row][column + i].getCurrPosition().getIsEnemy())) {
+                    this.board.board[row][column + i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column + i);
                 P.setNumber(row);
                 possibleMoves.add(P);
@@ -64,7 +64,7 @@ public class BoardManager {
             Position P = new Position(column,row);
 
             if(!board.outOfRange(column - i, row) && (this.board.emptyTile(column - i, row, this.board) ||
-                    !this.board.board[row][column - i].getCurrPosition().getIsEnemy())) {
+                    this.board.board[row][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row);
                 possibleMoves.add(P);
@@ -76,7 +76,7 @@ public class BoardManager {
             Position P = new Position(column,row);
 
             if(!board.outOfRange(column, row - i) && (this.board.emptyTile(column, row - i, this.board) ||
-                    !this.board.board[row - i][column].getCurrPosition().getIsEnemy())) {
+                    this.board.board[row - i][column].getCurrPosition().getIsEnemy())) {
 
                 P.setAlphabet(column);
                 P.setNumber(row - movement);
@@ -89,7 +89,7 @@ public class BoardManager {
             Position P = new Position(column,row);
 
             if(!board.outOfRange(column, row + i) && (this.board.emptyTile(column, row + i, this.board) ||
-                    !this.board.board[row + i][column].getCurrPosition().getIsEnemy())) {
+                    this.board.board[row + i][column].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column);
                 P.setNumber(row + i);
 
@@ -102,7 +102,7 @@ public class BoardManager {
             Position P = new Position(column,row);
 
             if(!board.outOfRange(column + i, row - i) && (this.board.emptyTile(column + i, row - i, this.board) ||
-                    !this.board.board[row - i][column + i].getCurrPosition().getIsEnemy())) {
+                    this.board.board[row - i][column + i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column + i);
                 P.setNumber(row - i);
                 possibleMoves.add(P);
@@ -114,7 +114,7 @@ public class BoardManager {
             Position P = new Position(column,row);
 
             if(!board.outOfRange(column + i, row + i) && (this.board.emptyTile(column + i, row + i, this.board) ||
-                    !this.board.board[row + i][column + i].getCurrPosition().getIsEnemy())) {
+                    this.board.board[row + i][column + i].getCurrPosition().getIsEnemy())) {
 
                 P.setAlphabet(column + i);
                 P.setNumber(row + i);
@@ -127,7 +127,7 @@ public class BoardManager {
             Position P = new Position(column,row);
 
             if(!board.outOfRange(column - i, row - i) && (this.board.emptyTile(column - i, row - i, this.board) ||
-                    !this.board.board[row - i][column - i].getCurrPosition().getIsEnemy())) {
+                    this.board.board[row - i][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row - i);
                 possibleMoves.add(P);
@@ -139,7 +139,7 @@ public class BoardManager {
             Position P = new Position(column,row);
 
             if(!board.outOfRange(column - i, row + i) && (this.board.emptyTile(column - i, row + i, this.board) ||
-                    !this.board.board[row + i][column - i].getCurrPosition().getIsEnemy())) {
+                    this.board.board[row + i][column - i].getCurrPosition().getIsEnemy())) {
                 P.setAlphabet(column - i);
                 P.setNumber(row + i);
                 possibleMoves.add(P);

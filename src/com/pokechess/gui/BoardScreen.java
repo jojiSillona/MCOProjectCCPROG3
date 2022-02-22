@@ -28,6 +28,9 @@ public class BoardScreen extends JPanel{
     private Tile destinationTile;
     private Pokemon humanActionPiece;
     private int playerAction = 0;
+    int turns = -1;
+    //turns / 3 % 2 = 0 -> PLAYER
+    //              = 1 -> ENEMY
 
     private final static Dimension BOARD_DIMENSION = new Dimension(800,600);
     private final static Dimension TILE_DIMENSION = new Dimension(20,20);
@@ -79,6 +82,8 @@ public class BoardScreen extends JPanel{
     public class TilePanel extends JPanel {
         private final int tileID;
 
+
+
         TilePanel(final BoardPanel boardPanel, final int tileID){
             super(new GridBagLayout());
             this.tileID = tileID;
@@ -104,29 +109,44 @@ public class BoardScreen extends JPanel{
                             destinationTile = board.getTile(tileID / 7, tileID % 7);
                             bManager.castPossibleMove(sourceTile.getCurrPosition());
                             int i = 0;
+
                             boolean move = false;
-                            while (i < bManager.possibleMoves.size()) {
-                                if (bManager.possibleMoves.get(i).getColumn() == destinationTile.getAlphabet() &&
-                                        bManager.possibleMoves.get(i).getRow() == destinationTile.getNumber()) {
-                                    bManager.board.movePokemon(sourceTile, destinationTile);
-                                    move = true;
-                                    if(destinationTile.getCurrPosition().getIsEnemy()){
-                                        bManager.initiateBattle();
+                            turns++;
+                            if((turns / 3) % 2 == 0) {
+                                while (i < bManager.possibleMoves.size()) {
+                                    if (bManager.possibleMoves.get(i).getColumn() == destinationTile.getAlphabet() &&
+                                            bManager.possibleMoves.get(i).getRow() == destinationTile.getNumber()) {
+                                        bManager.board.movePokemon(sourceTile, destinationTile);
+                                        move = true;
+                                        if (destinationTile.getCurrPosition().getIsEnemy()) {
+                                            bManager.initiateBattle();
+                                        }
+                                        bManager.possibleMoves.clear();
+
+                                        break;
+                                    } else {
+                                        i++;
                                     }
-                                    bManager.possibleMoves.clear();
-                                    board.moveComputer(bManager.computer);
-                                    break;
-                                } else {
-                                    i++;
+                                }
+                                if (!move)
+                                    dialogIllegal();
+
+                                System.out.println(turns);
+                            } else if((turns / 3) % 2 == 1){
+                                board.moveComputer(bManager.computer);
+                                try {
+                                    Thread.sleep(500);
+                                } catch (InterruptedException ex) {
+                                    ex.printStackTrace();
                                 }
                             }
-                            if (!move)
-                                dialogIllegal();
                             destinationTile = null;
                             sourceTile = null;
                             humanActionPiece = null;
                         }
+
                         SwingUtilities.invokeLater(() -> boardPanel.drawBoard(board));
+
                     }
                 }
 

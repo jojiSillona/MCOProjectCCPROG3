@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BattleScreenManager {
-    private GameManager gameManager;
+    private final GameManager gameManager;
     private BoardManager boardManager;
     private BattleScreen gui;
     public int turn = ThreadLocalRandom.current().nextInt(0, 10);

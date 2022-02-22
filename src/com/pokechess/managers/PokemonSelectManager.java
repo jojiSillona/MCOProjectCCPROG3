@@ -74,7 +74,7 @@ public class PokemonSelectManager {
                 rR = 3;
             }
         }
-        target.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR, user, true);
+        target.addPokemon(i, name, batTypeDisp, h, at, de, sp, hR, rR, true);
     }
 
     public void addPokemonToTeam(String name, String battleType, Player target, int user){
