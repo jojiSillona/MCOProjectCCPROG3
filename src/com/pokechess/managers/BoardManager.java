@@ -150,16 +150,48 @@ public class BoardManager {
         this.battleScreen = new BattleScreen(battleScreenManager, frame);
     }
 
-    public void dunk(Player target, int index){
+    public void dunk(Pokemon playerPokemon) {
+        // int index
         //check if player is beside the goal zone
         //check if player has a point
         //if there is a defender inside, he must defeat him first.
         //if none then
-        if(target.getPokemon(index).getPosition().getColumn() == 5) {
-            int temp = target.getPokemon(index).getCarriedPoints();
-            target.getPokemon(index).setCarriedPoints(0);
-            target.setPoints(temp);
+        int tempPlayerPoints = playerPokemon.getCarriedPoints();
+        int tempComputerPoints = computer.getPokemon(0).getCarriedPoints();
+
+        if (playerPokemon.getPosition().getColumn() == 5) {
+            // player beside goal zone
+            if (tempPlayerPoints >= 1) {
+                // this.board.board[i][6].currPokemonPos.getIsEnemy()
+                if (computer.getPokemon(0).getPosition().getColumn() == 6) {
+                    computer.getPokemon(0).getBattleType().equals("def");
+                }
+                initiateBattle();
+                // battleScreenManager.player.getPokemon(0).setCarriedPoints(tempPlayerPoints +=
+                // if a defender runs from a battle = defeat, player proceed with the dunk
+            } else if (tempPlayerPoints < 1) {
+                playerPokemon.getCarriedPoints();
+                // nothing happens
+            }
         }
+        if (computer.getPokemon(0).getPosition().getColumn() == 0) {
+            // computer beside goal zone
+            if (tempComputerPoints >= 1) {
+                if (playerPokemon.getPosition().getColumn() == 1) {
+                    playerPokemon.getBattleType().equals("def");
+                }
+                initiateBattle();
+                battleScreenManager.enemy.getPokemon(0).setCarriedPoints(tempComputerPoints);
+            } else if (tempComputerPoints < 1) {
+                playerPokemon.getCarriedPoints();
+                // nothing happens
+            }
+
+        }
+        //        if (playerPokemon.getPosition().getColumn() != 5){
+        //            // if goal has no defender, im not sure how many points will be added tho
+        //            tempPlayerPoints += ____
+        //
     }
 
     public void heal(Pokemon target){
