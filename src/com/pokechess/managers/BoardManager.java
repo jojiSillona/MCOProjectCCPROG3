@@ -194,54 +194,54 @@ public class BoardManager {
         //
     }
 
-    public void heal(Pokemon target){
+    public void heal(Pokemon target) {
+        boolean tempSupporter = target.getBattleType().equals("sup");
         boolean heal = target.pokemonHeal();
+
         int health = target.getMaxHp();
         Position playerPos = target.getPosition();
         int x = playerPos.getColumn();
         int y = playerPos.getRow();
 
-        Position [] healthPos = new Position[1];
+        Position[] healthPos = new Position[1];
 
-        System.out.print("Choose a pokemon to heal: ");
-        // Scanner must be a supporter battle type
-        // Pokemon must be beside
-        // Can only heal one ally at a time
 
-        if(heal){
-            for(int i = 0; i < health; i++){
-                healthPos = Arrays.copyOf(healthPos, healthPos.length + 1);
+        if (tempSupporter = true) {
+            if (heal = true) {
+                for (int i = 0; i < health; i++) {
+                    healthPos = Arrays.copyOf(healthPos, healthPos.length + 1);
 
-                // forward heal
-                healthPos[healthPos.length - 1].setAlphabet(x + health);
-                healthPos[healthPos.length - 1].setNumber(y);
+                    // forward heal
+                    healthPos[healthPos.length - 1].setAlphabet(x + health);
+                    healthPos[healthPos.length - 1].setNumber(y);
 
-                // backward heal
-                healthPos[healthPos.length - 1].setAlphabet(x - health);
-                healthPos[healthPos.length - 1].setNumber(y);
+                    // backward heal
+                    healthPos[healthPos.length - 1].setAlphabet(x - health);
+                    healthPos[healthPos.length - 1].setNumber(y);
 
-                // upward heal
-                healthPos[healthPos.length - 1].setAlphabet(x);
-                healthPos[healthPos.length - 1].setNumber(y + health);
+                    // upward heal
+                    healthPos[healthPos.length - 1].setAlphabet(x);
+                    healthPos[healthPos.length - 1].setNumber(y + health);
 
-                // downward heal
-                healthPos[healthPos.length - 1].setAlphabet(x);
-                healthPos[healthPos.length - 1].setNumber(y - health);
+                    // downward heal
+                    healthPos[healthPos.length - 1].setAlphabet(x);
+                    healthPos[healthPos.length - 1].setNumber(y - health);
 
-                // diagonal up heal
-                healthPos[healthPos.length - 1].setAlphabet(x - health);
-                healthPos[healthPos.length - 1].setNumber(y + health);
+                    // diagonal up heal
+                    healthPos[healthPos.length - 1].setAlphabet(x - health);
+                    healthPos[healthPos.length - 1].setNumber(y + health);
 
-                // diagonal down heal
-                healthPos[healthPos.length - 1].setAlphabet(x - health);
-                healthPos[healthPos.length - 1].setNumber(y - health);
+                    // diagonal down heal
+                    healthPos[healthPos.length - 1].setAlphabet(x - health);
+                    healthPos[healthPos.length - 1].setNumber(y - health);
 
-                health += 20;
-                System.out.println(target.getName() + " has recovered 20 energy points.");
+                    health += 20;
+                    System.out.println(target.getName() + " has recovered 20 energy points.");
+                }
             }
-        }
-        else {
-            System.out.println(target.getName() + " cannot be healed.");
+            else {
+                System.out.println(target.getName() + " cannot be healed.");
+            }
         }
     }
 
