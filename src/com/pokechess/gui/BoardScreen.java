@@ -116,11 +116,15 @@ public class BoardScreen extends JPanel{
                                 while (i < bManager.possibleMoves.size()) {
                                     if (bManager.possibleMoves.get(i).getColumn() == destinationTile.getAlphabet() &&
                                             bManager.possibleMoves.get(i).getRow() == destinationTile.getNumber()) {
-                                        bManager.board.movePokemon(sourceTile, destinationTile);
+                                        if (board.getTile(destinationTile.getNumber(), destinationTile.getAlphabet()).getCurrPosition().getIsEnemy()) {
+                                            System.out.println("INIT BATTLE");
+                                            bManager.initiateBattle(sourceTile.getCurrPosition(), destinationTile.getCurrPosition());
+                                            if(!bManager.battleScreenManager.getPlayerWon())
+                                                bManager.board.movePokemon(sourceTile, destinationTile);
+                                        } else
+                                            bManager.board.movePokemon(sourceTile, destinationTile);
                                         move = true;
-                                        if (destinationTile.getCurrPosition().getIsEnemy()) {
-                                            bManager.initiateBattle();
-                                        }
+
                                         bManager.possibleMoves.clear();
 
                                         break;

@@ -38,13 +38,13 @@ public class Board {
     public void setZones(Pokemon[] homePokemon, Pokemon[] computerPokemon) {
         int i;
         for(i = 0; i < 5; i++){
-            board[i][0].setCurrPosition(homePokemon[i]);
-            board[i][0].setStartingTilePosition(homePokemon[i]);
+            this.board[i][0].setCurrPosition(homePokemon[i]);
+            this.board[i][0].setStartingTilePosition(homePokemon[i]);
         }
 
         for(i = 0; i < 5; i++){
-            board[i][6].setCurrPosition(computerPokemon[i]);
-            board[i][6].setStartingTilePosition(computerPokemon[i]);
+            this.board[i][6].setCurrPosition(computerPokemon[i]);
+            this.board[i][6].setStartingTilePosition(computerPokemon[i]);
         }
     }
 
@@ -53,8 +53,8 @@ public class Board {
         current.removePokemon();
     }
 
-    public boolean emptyTile(int x, int y, Board board){
-        if(board.board[y][x].getCurrentPokemonName().equals("non")){
+    public boolean emptyTile(int x, int y){
+        if(this.board[y][x].getCurrentPokemonName().equals("non")){
             return true;
         }
 
@@ -64,12 +64,13 @@ public class Board {
 
     public void moveComputer(Player computer){
         int randomPokemon = ThreadLocalRandom.current().nextInt(0, 5);
-        int randomPosition = ThreadLocalRandom.current().nextInt(0, manager.possibleMoves.size() + 1);
+
 
         Pokemon selectedPokemon = computer.getPokemon(randomPokemon);
         Position enemyPokemonPosition = selectedPokemon.getPosition();
 
         manager.castPossibleMove(selectedPokemon);
+        int randomPosition = ThreadLocalRandom.current().nextInt(0, manager.possibleMoves.size() - 1);
         Position destinationTile = manager.possibleMoves.get(randomPosition);
 
         this.board[destinationTile.getRow()][destinationTile.getColumn()].
@@ -93,18 +94,7 @@ public class Board {
     // Gets the tile position
     public Tile getTile(int x, int y){
 
-        return board[x][y];
-    }
-
-    public void tileIDToPos(int tileID){
-        int x;
-        int y;
-        switch(tileID){
-            case 0 -> {
-                x = 0;
-                y = 0;
-            }
-        }
+        return this.board[x][y];
     }
 
 }

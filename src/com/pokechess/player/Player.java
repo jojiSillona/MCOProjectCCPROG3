@@ -62,6 +62,10 @@ public class Player {
         pokemonTeam[0].setBattleType(bt);
     }
 
+    public void addPokemon(Pokemon pokemon){
+        pokemonTeam[0] = pokemon;
+    }
+
     public Pokemon[] getPokemonTeam(){
         return Arrays.copyOf(pokemonTeam, pokemonTeam.length);
     }
