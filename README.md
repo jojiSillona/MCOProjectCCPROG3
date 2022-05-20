@@ -1,8 +1,8 @@
 # MCOProjectCCPROG3
 
-UPDATED as of 11/30 - 3:34PM
+This is our take on our project in University.
 
-All player Classes has been updated.
+Please do take note that the project is unfinished and may not work properly.
 
-goal: call the parameters from Pokemon and PokemonBattleType on Player and call these on GameManager as well.
-try kong pagaralan yung sa pagplace ng pokemons sa board rn. i'll try to ask din for help sa computations if ever dun sa mga hp chuchu sa GameManager nde tlga yun kaya ng utak ko T^T
+DISCLAIMER:
+This EDUCATIONAL app is not affiliated, endorsed or supported by Nintendo in any way. Some images used in this app are copyrighted and supported under fair use. Pokemon and Pokemon character names are trademark of Nintendo. No copyright infringement was intended. Pokemon (C) 2002-2022 Pokemon.
